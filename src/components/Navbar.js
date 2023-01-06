@@ -16,7 +16,7 @@ function Navbar() {
                         <li className="nav-item"><Link to="/admin-user" className="nav-link">Admin Usuários</Link></li>
                         <li className="nav-item"><Link className="nav-link">Sobre</Link></li>
                         <li className="nav-item"><Link className="nav-link">Contato</Link></li>
-                        <li className="nav-item"><Link to="/" className="nav-link active" aria-current="page">Blog</Link></li>
+                        <li className="nav-item"><Link to="/blog" className="nav-link active" aria-current="page">Blog</Link></li>
                     </ul>
                 </div>
             </div>

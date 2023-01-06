@@ -1,11 +1,12 @@
 import {useState, useEffect} from 'react';
-import { useParams } from 'react-router-dom';
+import { Link, useParams } from 'react-router-dom';
 import api from '../api/api.js';
 import MDEditor from '@uiw/react-md-editor';
 import transformImage from "../utils/TransformImage.js";
 import CategoriesWidget from "../components/CategoriesWidget";
 import SearchWidget from "../components/SearchWidget";
 import SideWidget from "../components/SideWidget";
+import { longDate } from '../utils/TransformDate.js';
 
 
 function PostPage() {
@@ -20,7 +21,7 @@ function PostPage() {
     useEffect(()=>{
         async function fetchPosts(){
             try {
-                const response = await api.get(`/post/${postId}`);
+                const response = await api.get(`/post/getpost/${postId}`);
                 setPost(response.data);
 
                 setIsLoading(false);
@@ -31,6 +32,9 @@ function PostPage() {
         fetchPosts();
     },[postId]);
     
+
+    
+
     // image size : 900 x 400
     //const strImg = transformImage(post.image,"c_thumb,g_auto,h_400,w_900");
 
@@ -55,11 +59,17 @@ function PostPage() {
                             <h1 className="fw-bolder mb-1"> {post.title} </h1>
                             
                             {/* <!-- Post meta content--> */}
-                            <div className="text-muted fst-italic mb-2">Posted on January 1, 2022 by Start Bootstrap</div>
+                            <div className="text-muted fst-italic mb-2">Publicado em {longDate(post.createdAt.toString())} por {post.author.name}</div>
                             
                             {/* <!-- Post categories--> */}
-                            <a className="badge bg-secondary text-decoration-none link-light mx-1" href="#!">Web Design</a>
-                            <a className="badge bg-secondary text-decoration-none link-light mx-1" href="#!">Freebies</a>
+                            {
+                                post.category.map((category, index)=>{
+                                    return (
+                                        <Link key={index} className="badge bg-secondary text-decoration-none link-light mx-1" to="/">{category}</Link>
+                                    )
+                                })
+                            }
+                                              
                         </header>
                         
                         {/* <!-- Preview image figure--> */}

@@ -3,12 +3,11 @@ import api from '../api/api.js';
 
 import CategoriesWidget from "../components/CategoriesWidget";
 import FeaturedPost from "../components/FeaturedPost";
-import Header from "../components/Header";
 import PostCard from "../components/PostCard";
 import SearchWidget from "../components/SearchWidget";
 import SideWidget from "../components/SideWidget";
 
-function HomePage() {
+function BlogPage() {
 
     const [isLoading, setIsLoading] = useState(true);
     const [posts, setPosts] = useState([]);
@@ -31,9 +30,9 @@ function HomePage() {
         {!isLoading && (
 
         <>
-        <Header />
         
-        <div className="container">
+        
+        <div className="container mt-5">
             <div className="row">
                 {/* <!-- Blog entries--> */}
                 <div className="col-lg-8">
@@ -71,7 +70,7 @@ function HomePage() {
 
 
                     {/* <!-- Pagination--> */}
-                    {/* <nav aria-label="Pagination">
+                    <nav aria-label="Pagination">
                         <hr className="my-0" />
                         <ul className="pagination justify-content-center my-4">
                             <li className="page-item disabled"><a className="page-link" href="#!" tabIndex="-1" aria-disabled="true">Newer</a></li>
@@ -82,7 +81,7 @@ function HomePage() {
                             <li className="page-item"><a className="page-link" href="#!">15</a></li>
                             <li className="page-item"><a className="page-link" href="#!">Older</a></li>
                         </ul>
-                    </nav> */}
+                    </nav>
                 </div>
 
 
@@ -110,4 +109,4 @@ function HomePage() {
      );
 }
 
-export default HomePage;
+export default BlogPage;

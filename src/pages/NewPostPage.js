@@ -1,14 +1,18 @@
 
-import { useState } from 'react';
+import { useState, useContext } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { AuthContext } from '../contexts/authContext';
 import api from '../api/api.js';
 import MDEditor from '@uiw/react-md-editor';
 
 function NewPostPage() {
     
+    const { loggedInUser } = useContext(AuthContext);
+    const idUser = loggedInUser.user._id;
     const navigate = useNavigate();    
     const [form, setForm] = useState({
         title: "",        
+        category: [],
         image: "",
         summary: "",
         text: ""
@@ -43,9 +47,9 @@ function NewPostPage() {
     async function handleSubmit(e){
         e.preventDefault();        
         const imgURL = await handleUpload();
-        
+        const arrayCategory = form.category.split(",").map(element => element.trim());
         try {       
-            await api.post("/post/new-post", {...form, image: imgURL});
+            await api.post("/post/new-post", {...form, author: idUser, category: arrayCategory, image: imgURL});
             navigate("/");
         } catch (error) {
             console.log(error);
@@ -59,7 +63,7 @@ function NewPostPage() {
         <div className="container mt-5">
             <div className="row">
                 <div className="col-lg-12 mb-5">
-                    <h1>New Post</h1>
+                    <h1 className="mb-3">Nova Publicação</h1>
                     
                     <form>
                         
@@ -69,9 +73,14 @@ function NewPostPage() {
                         </div>
 
                         <div className="col-lg-8 mb-3">
+                            <label className="form-label">Categorias:</label>
+                            <input type="text" className="form-control" name="category" onChange={handleChange} />
+                        </div>
+                        
+                        <div className="col-lg-8 mb-3">
                             <label className="form-label">Imagem:</label>
                             <input className="form-control" type="file" name="image" onChange={handleImage} />
-                        </div>
+                        </div>                        
 
                         <div className="col-lg-12 mb-3">
                             <label className="form-label">Resumo:</label>
