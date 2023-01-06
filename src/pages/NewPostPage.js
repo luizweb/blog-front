@@ -14,17 +14,38 @@ function NewPostPage() {
         text: ""
     });
 
+    const [img, setImg] = useState();
+
     //const [value, setValue] = useState("**Hello world!!!**");
     
     function handleChange(e){
         setForm({...form, [e.target.name]:e.target.value});
     };
 
+    function handleImage(e){
+        //setImg(e.target.files[0].name);
+        setImg(e.target.files[0]);
+        console.log(e.target.files[0])
+    }
+    
+    async function handleUpload(e){
+        try {
+            const uploadData = new FormData();
+            uploadData.append("picture", img);
+            const response = await api.post('/upload/img', uploadData)
+            return response.data.url;
+
+        } catch (error) {
+            console.log(error);
+        }
+    };
+
     async function handleSubmit(e){
-        e.preventDefault();
-         
+        e.preventDefault();        
+        const imgURL = await handleUpload();
+        
         try {       
-            await api.post("/post/new-post", form);
+            await api.post("/post/new-post", {...form, image: imgURL});
             navigate("/");
         } catch (error) {
             console.log(error);
@@ -49,7 +70,7 @@ function NewPostPage() {
 
                         <div className="col-lg-8 mb-3">
                             <label className="form-label">Imagem:</label>
-                            <input type="text" className="form-control" name="image" onChange={handleChange} />
+                            <input className="form-control" type="file" name="image" onChange={handleImage} />
                         </div>
 
                         <div className="col-lg-12 mb-3">

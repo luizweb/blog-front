@@ -13,7 +13,7 @@ function AdminUserPage() {
     useEffect(()=>{
         async function fetchPosts(){
             try {
-                const response = await api.get("/user");
+                const response = await api.get("/user/admin-user");
                 setUsers(response.data);
                 setIsLoading(false);
             } catch (error) {
@@ -65,7 +65,7 @@ function AdminUserPage() {
 
                                     return (
 
-                                        <tr key={index} className="align-baseline">
+                                        <tr key={user._id} className="align-baseline">
                                             <th scope="row">{index}</th>
                                             <td><img src={strImage} alt="profile-pic" height="40px"/></td>
                                             <td>{user.name}</td>

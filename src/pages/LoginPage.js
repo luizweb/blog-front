@@ -1,17 +1,16 @@
-import { useState } from 'react';
+import { useState, useContext } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import api from '../api/api.js';
+import { AuthContext } from '../contexts/authContext';
 
-function SignUpPage() {
+function LoginPage() {
     
     const navigate = useNavigate();    
-    const [form, setForm] = useState({
-        name: "",
+    const [form, setForm] = useState({        
         email: "",
-        password: "",
-        confirmPassword: ""
+        password: ""        
     });
-    
+    const { setLoggedInUser } = useContext(AuthContext);
     
     function handleChange(e){
         setForm({...form, [e.target.name]:e.target.value});
@@ -21,47 +20,39 @@ function SignUpPage() {
         e.preventDefault();
         
         try {       
-            await api.post("/user/signup", form);
-            navigate("/");
+            const response = await api.post("/user/login", form);
+            setLoggedInUser({ ...response.data });
+            localStorage.setItem("loggedInUser", JSON.stringify(response.data));
+
+            navigate("/profile");
         } catch (error) {
             console.log(error);
         }
     };
 
     return ( 
-
         <>
                 
         <div className="container mt-5">
             <div className="row">
                 <div className="col-lg-6 m-auto shadow-sm p-3 mb-5 bg-body-tertiary rounded border">
-                    <h1 className="m-0">Cadastre-se</h1>
-                    <p className="mb-3">Cadastre-se e tenha acesso a um conteúdo exclusivo!</p>
+                    <h1 className="m-0">Entre</h1>
+                    <p className="mb-3">Entre e tenha acesso a um conteúdo exclusivo!</p>
                     
                     <form>
-                        
-                        <div className="col-lg-12 mb-2">
-                            <label className="form-label">Nome:</label>
-                            <input type="text" className="form-control" name="name" onChange={handleChange} />
-                        </div>
                         
                         <div className="col-lg-12 mb-2">
                             <label className="form-label">Email:</label>
                             <input type="email" className="form-control" name="email" onChange={handleChange} />
                         </div>
 
-                        <div className="col-lg-12 mb-2">
+                        <div className="col-lg-12 mb-3">
                             <label className="form-label">Senha:</label>
                             <input type="password" className="form-control" name="password" onChange={handleChange} />
                         </div>
 
-                        <div className="col-lg-12 mb-3">
-                            <label className="form-label">Confirme a senha:</label>
-                            <input type="password" className="form-control" name="confirmPassword" onChange={handleChange} />
-                        </div>
-
-                        <button className="mt-3 mb-5 btn btn-primary" onClick={handleSubmit}>Cadastrar</button>
-                        <p className="text-center small my-0">Já possui cadastro? Faça o seu <Link to="/login">login</Link >.</p>
+                        <button className="mt-3 mb-5 btn btn-primary" onClick={handleSubmit}>Entrar</button>
+                        <p className="text-center small my-0">Ainda não possui cadastro? <Link to="/signup">Cadastre-se</Link >.</p>
                     </form>
 
                 </div>
@@ -69,8 +60,7 @@ function SignUpPage() {
         </div>
 
         </>
-
      );
 }
 
-export default SignUpPage;
+export default LoginPage;

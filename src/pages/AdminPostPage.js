@@ -61,7 +61,7 @@ function AdminPostPage() {
                                                                       
                                     return (
 
-                                        <tr key={index}>
+                                        <tr key={post._id}>
                                             <th scope="row">{index}</th>
                                             <td>{shortDate(post.createdAt.toString())}</td>
                                             <td className="fw-bold">{post.title}</td>

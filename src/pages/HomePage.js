@@ -8,7 +8,7 @@ import PostCard from "../components/PostCard";
 import SearchWidget from "../components/SearchWidget";
 import SideWidget from "../components/SideWidget";
 
-function HomPage() {
+function HomePage() {
 
     const [isLoading, setIsLoading] = useState(true);
     const [posts, setPosts] = useState([]);
@@ -47,12 +47,18 @@ function HomPage() {
                             {/* <!-- Blog post--> */}
                             
                             {
-                                posts.map((post, index) => {                                    
-                                    if (index === 0)
-                                        return <></>                                    
+                                posts
+                                .filter((e, index) => {
+                                    if (index === 0){
+                                        return false;
+                                    }
+                                    return true;
+                                })
+                                .map((post) => {                
+                                                                        
                                     return (
                                                                   
-                                        <div key={index} className="col-lg-6">
+                                        <div key={post._id} className="col-lg-6">
                                             <PostCard post={post} />
                                         </div>
                                     )
@@ -104,4 +110,4 @@ function HomPage() {
      );
 }
 
-export default HomPage;
+export default HomePage;
