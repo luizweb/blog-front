@@ -9,6 +9,7 @@ function NewPostPage() {
     
     const { loggedInUser } = useContext(AuthContext);
     const idUser = loggedInUser.user._id;
+    console.log(idUser)
     const navigate = useNavigate();    
     const [form, setForm] = useState({
         title: "",        
@@ -48,6 +49,8 @@ function NewPostPage() {
         e.preventDefault();        
         const imgURL = await handleUpload();
         const arrayCategory = form.category.split(",").map(element => element.trim());
+        console.log(imgURL)
+        console.log(arrayCategory)
         try {       
             await api.post("/post/new-post", {...form, author: idUser, category: arrayCategory, image: imgURL});
             navigate("/");

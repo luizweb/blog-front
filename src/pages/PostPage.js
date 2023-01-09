@@ -13,15 +13,15 @@ function PostPage() {
 
     
     
-    const { postId } = useParams();
-
+    const { slug } = useParams();
+    
     const [isLoading, setIsLoading] = useState(true);
     const [post, setPost] = useState([]);
 
     useEffect(()=>{
         async function fetchPosts(){
             try {
-                const response = await api.get(`/post/getpost/${postId}`);
+                const response = await api.get(`/post/getpost/${slug}`);
                 setPost(response.data);
 
                 setIsLoading(false);
@@ -30,7 +30,7 @@ function PostPage() {
             }
         };
         fetchPosts();
-    },[postId]);
+    },[slug]);
     
 
     

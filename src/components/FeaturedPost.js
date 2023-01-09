@@ -11,12 +11,12 @@ function FeaturedPost({post}) {
     return ( 
         <div className="card mb-4">
             {/* 850x350 */}
-            <Link to={`/post/${post._id}`}><img className="card-img-top" src={ strImg } alt="..." /></Link>
+            <Link to={`/blog/${post.slug}`}><img className="card-img-top" src={ strImg } alt="..." /></Link>
             <div className="card-body">
                 <div className="small text-muted"> { strDate } </div>
                 <h2 className="card-title"> {post.title}  </h2>
                 <p className="card-text"> {post.summary.slice(0,215)} </p>
-                <Link to={`/post/${post._id}`} className ="btn btn-primary">Leia mais →</Link>
+                <Link to={`/blog/${post.slug}`} className ="btn btn-primary">Leia mais →</Link>
             </div>
         </div>
      );

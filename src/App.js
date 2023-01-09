@@ -25,7 +25,7 @@ function App() {
       <Navbar />
       <Routes>
         <Route path="/" element={ <HomePage /> } />
-        <Route path="/post/:postId" element={ <PostPage /> } />
+        <Route path="/blog/:slug" element={ <PostPage /> } />
         
         <Route path="/newpost" element={ <NewPostPage /> } />
         <Route path="/signup" element={ <SignUpPage /> } />
