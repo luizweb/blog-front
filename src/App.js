@@ -13,6 +13,8 @@ import LoginPage from './pages/LoginPage';
 import ProfilePage from './pages/ProfilePage';
 import ErrorPage from './pages/ErrorPage';
 import BlogPage from './pages/BlogPage';
+import BlogCategoryPage from './pages/BlogCategoryPage';
+import BlogTagPage from './pages/BlogTagPage';
 
 import { AuthContextComponent } from "./contexts/authContext";
 import ProtectedRoute from "./components/ProtectedRoute";
@@ -31,7 +33,10 @@ function App() {
         <Route path="/signup" element={ <SignUpPage /> } />
         <Route path="/login" element={ <LoginPage /> } />
         <Route path="/profile" element={ <ProtectedRoute Component={ProfilePage} /> } />
+        
         <Route path="/blog" element={ <BlogPage /> } />
+        <Route path="/blog/categoria/:categoria" element={ <BlogCategoryPage /> } />
+        <Route path="/blog/tag/:tag" element={ <BlogTagPage /> } />
         
         <Route path="/admin-post" element={ <ProtectedRouteAdmin Component={AdminPostPage} /> } />
         <Route path="/admin-user" element={ <ProtectedRouteAdmin Component={AdminUserPage} /> } />

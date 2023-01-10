@@ -1,15 +1,19 @@
 import {useState, useEffect} from 'react';
+import { Link, useParams } from 'react-router-dom';
 import api from '../api/api.js';
+import {RxHome} from 'react-icons/rx';
+import {MdOutlineNavigateNext} from 'react-icons/md';
+
 
 import CategoriesWidget from "../components/CategoriesWidget";
-import FeaturedPost from "../components/FeaturedPost";
-import Header from "../components/Header";
 import PostCard from "../components/PostCard";
 import SearchWidget from "../components/SearchWidget";
 import SideWidget from "../components/SideWidget";
 import TagsWidget from '../components/TagsWidget.js';
 
-function HomePage() {
+function BlogCategoryPage() {
+
+    const { tag } = useParams();
 
     const [isLoading, setIsLoading] = useState(true);
     const [posts, setPosts] = useState([]);
@@ -17,7 +21,7 @@ function HomePage() {
     useEffect(()=>{
         async function fetchPosts(){
             try {
-                const response = await api.get("/post");
+                const response = await api.get(`/post/tag/${tag}`);
                 setPosts(response.data);
                 setIsLoading(false);
             } catch (error) {
@@ -25,21 +29,29 @@ function HomePage() {
             }
         };
         fetchPosts();
-    },[])
+    },[tag])
 
     return ( 
         <>
         {!isLoading && (
 
         <>
-        <Header />
         
-        <div className="container">
+        
+        <div className="container mt-5">
             <div className="row">
+
+                <div className="fs-6 mb-4">
+                    <Link to="/"><RxHome className="fs-5 text-black-50" /></Link>
+                    <MdOutlineNavigateNext className="text-black-50" /><Link to="/blog" className="text-black-50 text-decoration-none">Blog</Link>
+                    <MdOutlineNavigateNext className="text-black-50" /><span className="text-black-50">Tag</span>
+                    <MdOutlineNavigateNext className="text-black-50" /><span className="fw-bold">{tag}</span>
+                </div>
+                
+
                 {/* <!-- Blog entries--> */}
                 <div className="col-lg-8">
-                    {/* <!-- Featured blog post--> */}
-                    <FeaturedPost post={posts[0]} />                  
+                                   
                     
                     
                     {/* <!-- Nested row for non-featured blog posts--> */}
@@ -48,13 +60,7 @@ function HomePage() {
                             {/* <!-- Blog post--> */}
                             
                             {
-                                posts
-                                .filter((e, index) => {
-                                    if (index === 0){
-                                        return false;
-                                    }
-                                    return true;
-                                })
+                                posts         
                                 .map((post) => {                
                                                                         
                                     return (
@@ -96,8 +102,8 @@ function HomePage() {
                     {/* <!-- Categories widget--> */}
                     <CategoriesWidget />
 
-                     {/* <!-- Tags widget--> */}
-                     <TagsWidget />
+                    {/* <!-- Tags widget--> */}
+                    <TagsWidget/>
                     
                     {/* <!-- Side widget--> */}
                     <SideWidget />
@@ -114,4 +120,4 @@ function HomePage() {
      );
 }
 
-export default HomePage;
+export default BlogCategoryPage;

@@ -2,17 +2,17 @@ import {useState, useEffect} from 'react';
 import { Link } from 'react-router-dom';
 import api from '../api/api.js';
 
-function CategoriesWidget() {
+function TagsWidget() {
       
     
     const [isLoading, setIsLoading] = useState(true);
-    const [categories, setCategories] = useState({});
+    const [tags, setTags] = useState({});
 
     useEffect(()=>{
         async function fetchCategory(){
             try {
-                const response = await api.get("/post/allcategories");
-                setCategories(response.data);
+                const response = await api.get("/post/alltags");
+                setTags(response.data);
                 setIsLoading(false); 
             } catch (error) {
                 console.log(error);
@@ -28,24 +28,22 @@ function CategoriesWidget() {
         {!isLoading && (
             
             <div className="card mb-4">
-                <div className="card-header">Categorias</div>
+                <div className="card-header">Tags</div>
                 <div className="card-body">
                     <div className="row">
                         <div>
-                            <ul className="list-group">
+                            
                                 
                             {
-                               Object.entries(categories).map(([k,v], index) => {
+                               Object.entries(tags).map(([k,v], index) => {
                                 return(
-                                    <Link key={index} to={`/blog/categoria/${k}`} className="text-decoration-none">
-                                        <li className="list-group-item list-group-item-action d-flex justify-content-between align-items-center border-0 border-bottom"> {k} 
-                                        <span className="badge bg-secondary bg-opacity-50">{v}</span>
-                                        </li>
-                                    </Link>
+                                                                             
+                                        <span key={index} className="px-1"><Link to={`/blog/tag/${k}`}>{k}</Link></span>                                        
+                                   
                                 )})
                                
                             }
-                            </ul>    
+                               
                                 
                                 
                             
@@ -69,4 +67,4 @@ function CategoriesWidget() {
     );
 }
 
-export default CategoriesWidget;
+export default TagsWidget;

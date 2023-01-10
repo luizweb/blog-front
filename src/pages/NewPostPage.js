@@ -13,6 +13,7 @@ function NewPostPage() {
     const navigate = useNavigate();    
     const [form, setForm] = useState({
         title: "",        
+        tags: [],
         category: [],
         image: "",
         summary: "",
@@ -48,11 +49,12 @@ function NewPostPage() {
     async function handleSubmit(e){
         e.preventDefault();        
         const imgURL = await handleUpload();
+        const arrayTags = form.tags.split(",").map(element => element.trim());
         const arrayCategory = form.category.split(",").map(element => element.trim());
         console.log(imgURL)
         console.log(arrayCategory)
         try {       
-            await api.post("/post/new-post", {...form, author: idUser, category: arrayCategory, image: imgURL});
+            await api.post("/post/new-post", {...form, author: idUser, tags: arrayTags, category: arrayCategory, image: imgURL});
             navigate("/");
         } catch (error) {
             console.log(error);
@@ -73,6 +75,11 @@ function NewPostPage() {
                         <div className="col-lg-8 mb-3">
                             <label className="form-label">Título:</label>
                             <input type="text" className="form-control" name="title" onChange={handleChange} />
+                        </div>
+
+                        <div className="col-lg-8 mb-3">
+                            <label className="form-label">Tags:</label>
+                            <input type="text" className="form-control" name="tags" onChange={handleChange} />
                         </div>
 
                         <div className="col-lg-8 mb-3">

@@ -7,6 +7,7 @@ import CategoriesWidget from "../components/CategoriesWidget";
 import SearchWidget from "../components/SearchWidget";
 import SideWidget from "../components/SideWidget";
 import { longDate } from '../utils/TransformDate.js';
+import TagsWidget from '../components/TagsWidget.js';
 
 
 function PostPage() {
@@ -21,7 +22,7 @@ function PostPage() {
     useEffect(()=>{
         async function fetchPosts(){
             try {
-                const response = await api.get(`/post/getpost/${slug}`);
+                const response = await api.get(`/post/post/${slug}`);
                 setPost(response.data);
 
                 setIsLoading(false);
@@ -63,9 +64,9 @@ function PostPage() {
                             
                             {/* <!-- Post categories--> */}
                             {
-                                post.category.map((category, index)=>{
-                                    return (
-                                        <Link key={index} className="badge bg-secondary text-decoration-none link-light mx-1" to="/">{category}</Link>
+                                post.tags.map((tag, index)=>{
+                                    return (                                        
+                                        <Link key={index} className="badge bg-secondary text-decoration-none link-light mx-1" to={`/blog/tag/${tag}`}>{tag}</Link>
                                     )
                                 })
                             }
@@ -137,6 +138,9 @@ function PostPage() {
                     
                     {/* <!-- Categories widget--> */}
                     <CategoriesWidget />
+
+                    {/* <!-- Tags widget--> */}
+                    <TagsWidget />
                     
                     {/* <!-- Side widget--> */}
                     <SideWidget />
