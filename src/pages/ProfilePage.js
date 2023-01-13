@@ -1,4 +1,4 @@
-import { useState, useContext, useEffect } from 'react';
+import { useState, useContext, useEffect, useCallback } from 'react';
 import { useNavigate } from 'react-router-dom';
 import api from '../api/api.js';
 import { AuthContext } from '../contexts/authContext';
@@ -16,6 +16,14 @@ function ProfilePage() {
     const [img, setImg] = useState("");
     const idUser = loggedInUser.user._id;
 
+    // useCallback - para usar uma função dentro do useEffect abaixo (no caso, a handleLogOut)
+    // ref: https://www.goldencreche.com/blog/functions-in-dependency-array-of-useeffect
+    const handleLogOut = useCallback(()=>{
+        localStorage.removeItem("loggedInUser");
+        setLoggedInUser(null);
+        navigate("/login");
+    },[setLoggedInUser,navigate])
+
     useEffect(()=>{
         async function fetchUser(){
             try {
@@ -24,11 +32,15 @@ function ProfilePage() {
                 setForm(response.data);
                 setIsLoading(false);
             } catch (error) {
-                console.log(error);
+                if (error.response.status === 401){
+                    // quando existe o token no localStorage, mas o token está expirado, realizar o logout.
+                    handleLogOut(); 
+                }
+                console.log(error);                
             }
         };
         fetchUser();
-    },[reload]);
+    },[reload, handleLogOut]);
     
     function handleChange(e){
         setForm({...form, [e.target.name]:e.target.value});
@@ -76,11 +88,16 @@ function ProfilePage() {
         }
     };
 
-    function handleLogOut() {
+    
+    
+    
+    
+    
+    /* function handleLogOut() {
         localStorage.removeItem("loggedInUser");
         setLoggedInUser(null);
         navigate("/login");
-    };
+    }; */
 
     return (
         <>

@@ -75,7 +75,7 @@ function PostPage() {
                         
                         {/* <!-- Preview image figure--> */}
                         {/* 900 x 400 */}
-                        <figure className="mb-4"><img className="img-fluid rounded" src={transformImage(post.image,"c_thumb,g_auto,h_400,w_900")} alt="post-pic" /></figure>
+                        <figure className="mb-4"><img className="img-fluid rounded" src={transformImage(post.image,"c_thumb,h_400,w_900")} alt="post-pic" /></figure>
                         
                         {/* <!-- Post content--> */}
                         <section className="mb-5">

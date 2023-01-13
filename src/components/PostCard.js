@@ -5,7 +5,8 @@ import transformImage from "../utils/TransformImage.js";
 function PostCard({post}) {
     
     // image size : 700 x 350
-    const strImg = transformImage(post.image,"c_thumb,g_auto,h_350,w_700");
+    const cloudinary_transformation = "c_thumb,h_350,w_700"
+    const strImg = transformImage(post.image, cloudinary_transformation);
     const strDate = longDate(post.createdAt.toString())
 
     return ( 
