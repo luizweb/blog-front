@@ -27,19 +27,20 @@ function App() {
       <Navbar />
       <Routes>
         <Route path="/" element={ <HomePage /> } />
-        <Route path="/blog/:slug" element={ <PostPage /> } />
         
-        <Route path="/newpost" element={ <NewPostPage /> } />
+        <Route path="/blog" element={ <BlogPage /> } />
+        <Route path="/blog/:slug" element={ <PostPage /> } />
+        <Route path="/blog/categoria/:categoria" element={ <BlogCategoryPage /> } />
+        <Route path="/blog/tag/:tag" element={ <BlogTagPage /> } />
+        
         <Route path="/signup" element={ <SignUpPage /> } />
         <Route path="/login" element={ <LoginPage /> } />
         <Route path="/profile" element={ <ProtectedRoute Component={ProfilePage} /> } />
         
-        <Route path="/blog" element={ <BlogPage /> } />
-        <Route path="/blog/categoria/:categoria" element={ <BlogCategoryPage /> } />
-        <Route path="/blog/tag/:tag" element={ <BlogTagPage /> } />
-        
+        <Route path="/newpost" element={ <ProtectedRouteAdmin Component={NewPostPage} /> } />
         <Route path="/admin-post" element={ <ProtectedRouteAdmin Component={AdminPostPage} /> } />
         <Route path="/admin-user" element={ <ProtectedRouteAdmin Component={AdminUserPage} /> } />
+        
         <Route path="*" element={ <ErrorPage /> } />
       </Routes>
       <Footer />
