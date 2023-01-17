@@ -3,12 +3,15 @@ import { AuthContext } from "../contexts/authContext";
 import { Navigate } from "react-router-dom";
 
 function ProtectedRoute({ Component }) {
+  
   const { loggedInUser } = useContext(AuthContext);
 
-  if (loggedInUser) {
-    return <Component />;
-  } else {
-    return <Navigate to="/login" />;
+  if (loggedInUser && loggedInUser.user.role === "ADMIN"){
+    return <Component />
+  } 
+
+  if (!loggedInUser || loggedInUser.user.role === "USER") {
+    return <Navigate to="/login" />
   }
 }
 

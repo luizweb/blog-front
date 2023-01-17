@@ -7,6 +7,7 @@ function Navbar() {
     
     const { loggedInUser } = useContext(AuthContext);
     
+    
     return ( 
         <nav className="navbar navbar-expand-lg navbar-dark bg-luizweb">
             <div className="container">

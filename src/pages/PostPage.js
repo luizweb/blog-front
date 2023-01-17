@@ -1,4 +1,4 @@
-import {useState, useEffect} from 'react';
+import {useState, useEffect, useContext} from 'react';
 import { Link, useParams } from 'react-router-dom';
 import api from '../api/api.js';
 import MDEditor from '@uiw/react-md-editor';
@@ -8,34 +8,46 @@ import SearchWidget from "../components/SearchWidget";
 import SideWidget from "../components/SideWidget";
 import { longDate } from '../utils/TransformDate.js';
 import TagsWidget from '../components/TagsWidget.js';
+import { AuthContext } from '../contexts/authContext';
+import {AiOutlineLike} from 'react-icons/ai';
+import {AiFillLike} from 'react-icons/ai';
 
 
 function PostPage() {
 
-    
+    const { loggedInUser } = useContext(AuthContext);
     
     const { slug } = useParams();
     
     const [isLoading, setIsLoading] = useState(true);
     const [post, setPost] = useState([]);
+    const [reload, setReload] = useState(false)
 
     useEffect(()=>{
         async function fetchPosts(){
             try {
                 const response = await api.get(`/post/post/${slug}`);
                 setPost(response.data);
-
                 setIsLoading(false);
             } catch (error) {
                 console.log(error);
             }
         };
         fetchPosts();
-    },[slug]);
+    },[slug, reload]);
     
 
+    async function handleLike(postId, userId){
+        try {
+                
+            const likeParams = {"postId": postId, "userId": userId}
+            await api.put('/post/like', likeParams);
+            setReload(!reload);
+        } catch (error) {
+            console.log(error);
+        }
+    }
     
-
     // image size : 900 x 400
     //const strImg = transformImage(post.image,"c_thumb,g_auto,h_400,w_900");
 
@@ -82,6 +94,21 @@ function PostPage() {
                             <MDEditor.Markdown source={post.text} />
                         </section>
                     
+                        <section className="mb-5">
+                            <div className="d-flex align-items-center">
+                                <div>
+                                    {(post.likes.includes(loggedInUser.user._id)) ? (
+                                        <AiFillLike className="fs-4" onClick={()=>{handleLike(post._id, loggedInUser.user._id)}} style={{cursor: "pointer"}} />   
+                                    ) : (
+                                        <AiOutlineLike className="fs-4" onClick={()=>{handleLike(post._id, loggedInUser.user._id)}} style={{cursor: "pointer"}}/> 
+                                    )}
+                                </div>
+                         
+                                
+                                <div className="ps-1">{post.likes.length}</div>
+                            </div>
+                        </section>    
+
                     </article>
                     
                     
