@@ -9,7 +9,7 @@ function TagsWidget() {
     const [tags, setTags] = useState({});
 
     useEffect(()=>{
-        async function fetchCategory(){
+        async function fetchTags(){
             try {
                 const response = await api.get("/post/alltags");
                 setTags(response.data);
@@ -18,7 +18,7 @@ function TagsWidget() {
                 console.log(error);
             }
         };
-        fetchCategory();
+        fetchTags();
     },[]);
     
     

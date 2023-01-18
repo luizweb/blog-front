@@ -52,6 +52,9 @@ function AdminUserPage() {
                             <th scope="col">Email</th>
                             <th scope="col">Tipo</th>
                             <th scope="col">Cadastro</th>
+                            <th scope="col">Likes</th>
+                            <th scope="col">Bookmarks</th>
+                            <th scope="col">Comentários</th>
                             <th scope="col">Confirmado</th>
                             <th scope="col">Ativo</th>
                             <th scope="col">Ação</th>
@@ -72,6 +75,9 @@ function AdminUserPage() {
                                             <td>{user.email}</td>
                                             <td>{user.role}</td>
                                             <td>{shortDate(user.createdAt.toString())}</td>
+                                            <td>{user.likes.length}</td>
+                                            <td>{user.savedPosts.length}</td>
+                                            <td>{user.comments.length}</td>
                                             <td>{user.confirmedEmail?"S":"N"}</td>
                                             <td>{user.active?"S":"N"}</td>
                                             <td>

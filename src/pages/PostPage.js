@@ -2,15 +2,23 @@ import {useState, useEffect, useContext} from 'react';
 import { Link, useParams } from 'react-router-dom';
 import api from '../api/api.js';
 import MDEditor from '@uiw/react-md-editor';
-import transformImage from "../utils/TransformImage.js";
-import CategoriesWidget from "../components/CategoriesWidget";
-import SearchWidget from "../components/SearchWidget";
-import SideWidget from "../components/SideWidget";
+import transformImage from '../utils/TransformImage.js';
+import CategoriesWidget from '../components/CategoriesWidget';
+import SearchWidget from '../components/SearchWidget';
+import SideWidget from '../components/SideWidget';
+import Comment from '../components/Comment'
 import { longDate } from '../utils/TransformDate.js';
 import TagsWidget from '../components/TagsWidget.js';
 import { AuthContext } from '../contexts/authContext';
+
+import {RxHome} from 'react-icons/rx';
+import {MdOutlineNavigateNext} from 'react-icons/md';
 import {AiOutlineLike} from 'react-icons/ai';
 import {AiFillLike} from 'react-icons/ai';
+import {BsBookmark} from 'react-icons/bs';
+import {BsBookmarkCheckFill} from 'react-icons/bs';
+import {FaRegCommentAlt} from 'react-icons/fa';
+
 
 
 function PostPage() {
@@ -46,7 +54,18 @@ function PostPage() {
         } catch (error) {
             console.log(error);
         }
-    }
+    };
+
+    async function handleBookmark(postId, userId){
+        try {
+                
+            const bookmarkParams = {"postId": postId, "userId": userId}
+            await api.put('/post/save', bookmarkParams);
+            setReload(!reload);
+        } catch (error) {
+            console.log(error);
+        }
+    };
     
     // image size : 900 x 400
     //const strImg = transformImage(post.image,"c_thumb,g_auto,h_400,w_900");
@@ -59,6 +78,14 @@ function PostPage() {
 
         <div className="container mt-5">
             <div className="row">
+
+                <div className="fs-6 mb-4">
+                    <Link to="/"><RxHome className="fs-5 text-black-50" /></Link>
+                    <MdOutlineNavigateNext className="text-black-50" /><Link to="/blog" className="text-black-50 text-decoration-none">Blog</Link>
+                   
+                </div>
+
+
                 <div className="col-lg-8">
 
                 
@@ -94,8 +121,9 @@ function PostPage() {
                             <MDEditor.Markdown source={post.text} />
                         </section>
                     
-                        <section className="mb-5">
-                            <div className="d-flex align-items-center">
+                        {loggedInUser ? (
+                        <section className="mb-5 d-flex align-items-center justify-content-center">
+                            <div className="d-flex align-items-center">   
                                 <div>
                                     {(post.likes.includes(loggedInUser.user._id)) ? (
                                         <AiFillLike className="fs-4" onClick={()=>{handleLike(post._id, loggedInUser.user._id)}} style={{cursor: "pointer"}} />   
@@ -103,57 +131,37 @@ function PostPage() {
                                         <AiOutlineLike className="fs-4" onClick={()=>{handleLike(post._id, loggedInUser.user._id)}} style={{cursor: "pointer"}}/> 
                                     )}
                                 </div>
-                         
-                                
-                                <div className="ps-1">{post.likes.length}</div>
+                                <div className="ps-1 fs-6 text-color-black-50">{post.likes.length}</div>
+                            </div>
+
+                            <div className="d-flex align-items-center ps-5">   
+                                <div>
+                                    {(post.savedPosts.includes(loggedInUser.user._id)) ? (
+                                        <BsBookmarkCheckFill className="fs-4" onClick={()=>{handleBookmark(post._id, loggedInUser.user._id)}} style={{cursor: "pointer"}} />   
+                                    ) : (
+                                        <BsBookmark className="fs-4" onClick={()=>{handleBookmark(post._id, loggedInUser.user._id)}} style={{cursor: "pointer"}}/> 
+                                    )}
+                                </div>
+                                <div className="ps-1 fs-6 text-color-black-50">{post.savedPosts.length}</div>
+                            </div>
+
+                            <div className="d-flex align-items-center ps-5">   
+                                <div>                     
+                                    <FaRegCommentAlt className="fs-4" />                                   
+                                </div>
+                                <div className="ps-1 fs-6 text-color-black-50">{post.comments.length}</div>
                             </div>
                         </section>    
-
+                        ):
+                        (<p>faça o login para curtir o post</p>)}
                     </article>
                     
-                    
+                    {loggedInUser && (
+                    <>
                     {/* <!-- Comments section--> */}
-                    <section className="mb-5">
-                        <div className="card bg-light">
-                            <div className="card-body">
-                                {/* <!-- Comment form--> */}
-                                <form className="mb-4"><textarea className="form-control" rows="3" placeholder="Join the discussion and leave a comment!"></textarea></form>
-                                {/* <!-- Comment with nested comments--> */}
-                                <div className="d-flex mb-4">
-                                {/*  <!-- Parent comment--> */}
-                                    <div className="flex-shrink-0"><img className="rounded-circle" src="https://dummyimage.com/50x50/ced4da/6c757d.jpg" alt="..." /></div>
-                                    <div className="ms-3">
-                                        <div className="fw-bold">Commenter Name</div>
-                                        If you're going to lead a space frontier, it has to be government; it'll never be private enterprise. Because the space frontier is dangerous, and it's expensive, and it has unquantified risks.
-                                        {/* <!-- Child comment 1--> */}
-                                        <div className="d-flex mt-4">
-                                            <div className="flex-shrink-0"><img className="rounded-circle" src="https://dummyimage.com/50x50/ced4da/6c757d.jpg" alt="..." /></div>
-                                            <div className="ms-3">
-                                                <div className="fw-bold">Commenter Name</div>
-                                                And under those conditions, you cannot establish a capital-market evaluation of that enterprise. You can't get investors.
-                                            </div>
-                                        </div>
-                                        {/* <!-- Child comment 2--> */}
-                                        <div className="d-flex mt-4">
-                                            <div className="flex-shrink-0"><img className="rounded-circle" src="https://dummyimage.com/50x50/ced4da/6c757d.jpg" alt="..." /></div>
-                                            <div className="ms-3">
-                                                <div className="fw-bold">Commenter Name</div>
-                                                When you put money directly to a problem, it makes a good headline.
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                {/* <!-- Single comment--> */}
-                                <div className="d-flex">
-                                    <div className="flex-shrink-0"><img className="rounded-circle" src="https://dummyimage.com/50x50/ced4da/6c757d.jpg" alt="..." /></div>
-                                    <div className="ms-3">
-                                        <div className="fw-bold">Commenter Name</div>
-                                        When I look at the universe and all the ways the universe wants to kill us, I find it hard to reconcile that with statements of beneficence.
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </section>
+                    <Comment postId={post._id}/>
+                    </>
+                    )}
                 </div>
             
 
