@@ -5,7 +5,7 @@ import CategoriesWidget from "../components/CategoriesWidget";
 import FeaturedPost from "../components/FeaturedPost";
 import Header from "../components/Header";
 import PostCard from "../components/PostCard";
-import SearchWidget from "../components/SearchWidget";
+
 import SideWidget from "../components/SideWidget";
 import TagsWidget from '../components/TagsWidget.js';
 
@@ -91,7 +91,7 @@ function HomePage() {
                 {/* <!-- Side widgets--> */}
                 <div className="col-lg-4">
                     {/* <!-- Search widget--> */}
-                    <SearchWidget />
+                    {/* <SearchWidget /> */}
                     
                     {/* <!-- Categories widget--> */}
                     <CategoriesWidget />

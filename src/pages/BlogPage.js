@@ -8,7 +8,7 @@ import {MdOutlineNavigateNext} from 'react-icons/md';
 import CategoriesWidget from "../components/CategoriesWidget";
 import FeaturedPost from "../components/FeaturedPost";
 import PostCard from "../components/PostCard";
-import SearchWidget from "../components/SearchWidget";
+
 import SideWidget from "../components/SideWidget";
 import TagsWidget from '../components/TagsWidget.js';
 
@@ -101,7 +101,7 @@ function BlogPage() {
                 {/* <!-- Side widgets--> */}
                 <div className="col-lg-4">
                     {/* <!-- Search widget--> */}
-                    <SearchWidget />
+                    {/* <SearchWidget /> */}
                     
                     {/* <!-- Categories widget--> */}
                     <CategoriesWidget />

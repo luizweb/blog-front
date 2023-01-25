@@ -4,7 +4,7 @@ import api from '../api/api.js';
 import MDEditor from '@uiw/react-md-editor';
 import transformImage from '../utils/TransformImage.js';
 import CategoriesWidget from '../components/CategoriesWidget';
-import SearchWidget from '../components/SearchWidget';
+
 import SideWidget from '../components/SideWidget';
 import Comment from '../components/Comment'
 import { longDate } from '../utils/TransformDate.js';
@@ -121,6 +121,8 @@ function PostPage() {
                             <MDEditor.Markdown source={post.text} />
                         </section>
                     
+
+                        {/* --- LIKE, SAVE, COMMENTS --- */}
                         {loggedInUser ? (
                         <section className="mb-5 d-flex align-items-center justify-content-center">
                             <div className="d-flex align-items-center">   
@@ -153,7 +155,7 @@ function PostPage() {
                             </div>
                         </section>    
                         ):
-                        (<p>faça o login para curtir o post</p>)}
+                        (<div className="bg-dark bg-opacity-10 p-3 mb-5">Para curtir, salvar como favorita ou comentar a postagem, <Link to="/signup">cadastre-se!</Link> Já é cadastrado? Faça o seu <Link to="/login">login</Link>. </div>)}
                     </article>
                     
                     {loggedInUser && (
@@ -169,7 +171,7 @@ function PostPage() {
                 {/* <!-- Side widgets--> */}
                 <div className="col-lg-4">
                     {/* <!-- Search widget--> */}
-                    <SearchWidget />
+                    {/* <SearchWidget /> */}
                     
                     {/* <!-- Categories widget--> */}
                     <CategoriesWidget />

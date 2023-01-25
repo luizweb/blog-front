@@ -81,7 +81,7 @@ function AdminUserPage() {
                                             <td>{user.confirmedEmail?"S":"N"}</td>
                                             <td>{user.active?"S":"N"}</td>
                                             <td>
-                                                <img src="https://cdn-icons-png.flaticon.com/512/2546/2546705.png" alt="update" height="25px"/> &nbsp;
+                                                
                                                 <img src="https://cdn-icons-png.flaticon.com/512/3177/3177433.png" alt="delete" height="25px" style={{cursor: "pointer"}} onClick={()=>{handleDelete(user._id)}}/>
                                             </td>
                                         </tr> 

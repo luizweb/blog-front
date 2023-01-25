@@ -1,8 +1,11 @@
 import { useState, useContext, useEffect, useCallback } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, Link } from 'react-router-dom';
 import api from '../api/api.js';
 import { AuthContext } from '../contexts/authContext';
 import transformImage from "../utils/TransformImage.js";
+import { shortDate } from '../utils/TransformDate.js';
+import { AiOutlineDelete } from 'react-icons/ai';
+import {BsBookmark} from 'react-icons/bs';
 
 function ProfilePage() {
     
@@ -88,7 +91,16 @@ function ProfilePage() {
         }
     };
 
-    
+    async function handleBookmark(postId, userId){
+        try {
+                
+            const bookmarkParams = {"postId": postId, "userId": userId}
+            await api.put('/post/save', bookmarkParams);
+            setReload(!reload);
+        } catch (error) {
+            console.log(error);
+        }
+    };
     
     
     
@@ -105,24 +117,81 @@ function ProfilePage() {
          !showForm && (                               
                 
                 <div className="container mt-5">
+                    
+                    
+                    <div className="row">
+                        <div className="col-lg-8 m-auto shadow-sm p-3 mb-2 bg-body-tertiary rounded border d-flex">                            
+                            <div className="col-lg-4 text-center bg-light pt-3">                             
+                                
+                                <div className="small mb-2 ms-3 text-start">
+                                    <p className="fw-bolder">Status</p>
+                                    <p>Total de curtidas: <span className="text-primary">{user.likes.length}</span></p> 
+                                    <p>Total de comentários: <span className="text-primary">{user.comments.length}</span></p>
+                                </div>                              
+                            </div>
+                            
+                            <div className="col-lg-8 px-2 ms-3">                            
+                                <h3><BsBookmark /> Posts Favoritos</h3>
+
+                                <table className="table">
+                                    
+                                    <tbody>
+                                {!user.savedPosts.length && (
+                                    <tr>
+                                        <td className="text-muted fst-italic small">Nenhuma postagem marcada como favorita</td>
+                                    </tr>
+                                )}
+                                {
+                                    user.savedPosts.map((post, index) => {
+                                        return(
+                                            
+                                            
+                                                    <tr key={post._id}>
+                                                        <th>{index + 1}</th>
+                                                        <td><Link to={`/blog/${post.slug}`}>{post.title}</Link></td>
+                                                        <td>
+                                                            <AiOutlineDelete onClick={()=>{handleBookmark(post._id, user._id)}} style={{cursor: "pointer"}} />
+                                                        </td>
+                                                    </tr> 
+                                                
+                                            
+                                           
+                                        )
+                                    })
+                                }
+
+                                    </tbody>
+                                            
+                                </table>
+                            </div>
+
+                        </div>
+                    </div>
+                    
+
                     <div className="row">
                         
-                        <div className="col-lg-6 m-auto shadow-sm p-3 mb-5 bg-body-tertiary rounded border d-flex">
+                        <div className="col-lg-8 m-auto shadow-sm p-3 mb-2 bg-body-tertiary rounded border d-flex">
                             
                             <div className="col-lg-4 text-center bg-light pt-3">
                               
                                 <img src={transformImage(user.profilePic, "ar_1:1,c_fill,g_auto,r_max,w_300")} alt="foto-perfil" className="w-75" />
+                                <div className="mt-3 fst-italic small text-black-50">Membro desde: </div>
+                                <div className="small">{shortDate(user.createdAt.toString())}</div>
+
+                                
+                                
                             </div>
                             
-                            <div className="col-lg-8 mx-2 px-2">
+                            <div className="col-lg-8 mx-2 px-2 ms-3">
 
-                                <h3 className="m-0 mb-3">Perfil</h3>               
+                                <h3 className="m-0 mb-3">{user.name}</h3>               
                                 
                                     
-                                    <div className="col-lg-12 mb-2">
+                                    {/* <div className="col-lg-12 mb-2">
                                         <p className="small mb-0 text-black-50">Nome:</p>
                                         <p className="mb-2">{user.name}</p>
-                                    </div>
+                                    </div> */}
                                                                  <div className="col-lg-12 mb-2">
                                         <p className="small mb-0 text-black-50">Email:</p>
                                         <p className="mb-2">{user.email}</p>
@@ -148,9 +217,8 @@ function ProfilePage() {
                                         <p className="mb-3">{user.city?user.city:"-"}</p>
                                     </div>
             
-                                    <button className="mt-3 mb-3 btn btn-primary" onClick={()=>{setShowForm(true)}}>Atualizar</button>
-                                    <button className="mt-3 mb-3 m-2 btn btn-warning" onClick={handleLogOut}>Logout</button>                                    
-                                    <button className="mt-3 mb-3 btn btn-danger" onClick={handleDelete}>Deletar</button>
+                                    <button className="mt-1 mb-3 btn btn-primary" onClick={()=>{setShowForm(true)}}>Atualizar</button>
+                                    
                                     
                               
             
@@ -158,6 +226,28 @@ function ProfilePage() {
 
                         </div>
                     </div>
+
+                    
+
+                    <div className="row">
+                        <div className="col-lg-8 m-auto shadow-sm p-3 mb-5 bg-body-tertiary rounded border d-flex">                            
+                            <div className="col-lg-4 text-center bg-light pt-3">                             
+                                     Administração da conta                           
+                            </div>
+                            
+                            <div className="col-lg-8 mx-2 px-2 ms-3">                            
+                                    <div className="col-lg-12 mb-2 d-flex flex-column">
+                                        
+                                        <div><span className="text-primary text-decoration-underline" onClick={handleLogOut} style={{cursor:"pointer"}}>Logout</span> </div>                                   
+                                        <div><span className="text-danger mt-2 text-decoration-underline" onClick={handleDelete} style={{cursor:"pointer"}}>Apagar minha conta</span></div>
+                                        
+                                    </div>
+                            </div>
+
+                        </div>
+                    </div>
+
+
                 </div>
         )}
         

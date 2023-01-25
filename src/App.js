@@ -15,6 +15,9 @@ import ErrorPage from './pages/ErrorPage';
 import BlogPage from './pages/BlogPage';
 import BlogCategoryPage from './pages/BlogCategoryPage';
 import BlogTagPage from './pages/BlogTagPage';
+import AboutPage from './pages/AboutPage';
+import ContactPage from './pages/ContactPage';
+import PortfolioPage from './pages/PortfolioPage';
 
 import { AuthContextComponent } from "./contexts/authContext";
 import ProtectedRoute from "./components/ProtectedRoute";
@@ -33,6 +36,10 @@ function App() {
         <Route path="/blog/categoria/:categoria" element={ <BlogCategoryPage /> } />
         <Route path="/blog/tag/:tag" element={ <BlogTagPage /> } />
         
+        <Route path="/about" element={ <AboutPage /> } />
+        <Route path="/contact" element={ <ContactPage /> } />
+        <Route path="/portfolio" element={ <PortfolioPage /> } />
+
         <Route path="/signup" element={ <SignUpPage /> } />
         <Route path="/login" element={ <LoginPage /> } />
         <Route path="/profile" element={ <ProtectedRoute Component={ProfilePage} /> } />
