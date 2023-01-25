@@ -147,9 +147,9 @@ function PostPage() {
 
                             <div className="d-flex align-items-center ps-5">   
                                 <div>                     
-                                    <FaRegCommentAlt className="fs-4" />                                   
+                                    <FaRegCommentAlt className="fs-4 text-muted" />                                   
                                 </div>
-                                <div className="ps-1 fs-6 text-color-black-50">{post.comments.length}</div>
+                                <div className="ps-1 fs-6 text-muted">{post.comments.length}</div>
                             </div>
                         </section>    
                         ):
@@ -159,7 +159,7 @@ function PostPage() {
                     {loggedInUser && (
                     <>
                     {/* <!-- Comments section--> */}
-                    <Comment postId={post._id}/>
+                    <Comment postId={post._id} setReload={setReload} reload={reload}/>
                     </>
                     )}
                 </div>

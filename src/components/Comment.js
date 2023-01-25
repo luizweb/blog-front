@@ -1,10 +1,22 @@
-import {useState, useEffect} from 'react';
+import {useState, useEffect, useContext} from 'react';
+import { AuthContext } from '../contexts/authContext';
 import api from '../api/api.js';
+import transformImage from "../utils/TransformImage.js";
+import { FiSend } from 'react-icons/fi';
+import { AiOutlineDelete } from 'react-icons/ai';
 
-function Comment({postId}) {
-    
+
+function Comment({postId, setReload, reload}) {
+    const { loggedInUser } = useContext(AuthContext);
     const [isLoading, setIsLoading] = useState(true);
+    const [reloadComment, setReloadComment] = useState(false);
     const [comments, setComments] = useState({});
+
+    const [form, setForm] = useState({
+        postId: postId,
+        commenter: loggedInUser.user._id,
+        comment: ""
+    })
 
     useEffect(()=>{
         async function fetchComments(){
@@ -17,12 +29,40 @@ function Comment({postId}) {
             }
         };
         fetchComments();
-    },[postId]);
+    },[postId, reloadComment]);
 
-    
+    function handleChange(e){
+        setForm({...form, [e.target.name]:e.target.value});
+        
+    };
+
+    async function handleSubmit(e){
+        e.preventDefault();
+        try {
+            await api.post("/comment/add", form);
+            setReloadComment(!reloadComment);
+            setReload(!reload);
+        } catch (error) {
+            console.log(error)
+        }
+    };
+
+    async function handleDelete(postId, userId, commentId){
+        try {
+            const deleteParams = {"postId": postId, "userId": userId, "commentId": commentId}
+            await api.put('/comment/delete', deleteParams);
+            setReloadComment(!reloadComment);
+            setReload(!reload);
+        } catch (error) {
+            console.log(error)
+        } 
+
+    }
 
     return ( 
         <>
+        
+
         {!isLoading && (
             <>
                 {/* <!-- Comments section--> */}
@@ -30,7 +70,21 @@ function Comment({postId}) {
                     <div className="card bg-light">
                         <div className="card-body">
                             {/* <!-- Comment form--> */}
-                            <form className="mb-4"><textarea className="form-control" rows="3" placeholder="Join the discussion and leave a comment!"></textarea></form>
+                            
+                                    
+                                    <form className="mb-4">
+                                        <div className='d-flex justify-content-end align-items-end'>
+                                            <textarea className="form-control" rows="3" placeholder="Participe da discussão e deixe um comentário!" name="comment" onChange={handleChange}>                                
+                                            </textarea>
+                                            
+                                            
+                                            <FiSend className="fs-3 text-black ms-2" onClick={handleSubmit} style={{cursor:"pointer"}}/>
+                                                
+                                            
+                                        </div>
+                                    </form>
+                                   
+                            
                             
                             {/* <!-- Comment with nested comments--> */}
                             
@@ -42,12 +96,16 @@ function Comment({postId}) {
                                             <div className="d-flex mb-4" key={comment._id}>
                                             {/*  <!-- Parent comment--> */}
                                                 <div className="flex-shrink-0">
-                                                    <img className="rounded-circle" src="https://dummyimage.com/50x50/ced4da/6c757d.jpg" alt="..." />
+                                                <img src={transformImage(comment.commenter.profilePic, "ar_1:1,c_fill,g_auto,r_max,w_300")} alt="profile-pic" height="40px"/>
                                                 </div>
                                                 
                                                 <div className="ms-3">
-                                                    <div className="fw-bold">{comment.commenter}</div>
-                                                    {comment.comment}
+                                                    <div className="fw-bold">{comment.commenter.name}</div>
+                                                    {comment.comment} 
+                                                    
+                                                    {loggedInUser.user._id === comment.commenter._id && (
+                                                        <AiOutlineDelete className="fs-5 text-danger ms-2" onClick={()=>{handleDelete(postId, loggedInUser.user._id, comment._id)}}/> 
+                                                    )}
                                                     
 
                                                     {/* <!-- Child comment 1--> */                                                        
@@ -56,9 +114,11 @@ function Comment({postId}) {
                                                                 
                                                                     
                                                                     <div className="d-flex mt-4" key={reply._id}>
-                                                                        <div className="flex-shrink-0"><img className="rounded-circle" src="https://dummyimage.com/50x50/ced4da/6c757d.jpg" alt="..." /></div>
+                                                                        <div className="flex-shrink-0">
+                                                                            <img src={transformImage(reply.commenter.profilePic, "ar_1:1,c_fill,g_auto,r_max,w_300")} alt="profile-pic" height="40px"/>
+                                                                        </div>
                                                                         <div className="ms-3">
-                                                                            <div className="fw-bold">{reply.commenter}</div>
+                                                                            <div className="fw-bold">{reply.commenter.name}</div>
                                                                             {reply.comment}
                                                                         </div>
                                                                     </div>
