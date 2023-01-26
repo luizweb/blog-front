@@ -9,7 +9,7 @@ function NewPostPage() {
     
     const { loggedInUser } = useContext(AuthContext);
     const idUser = loggedInUser.user._id;
-    console.log(idUser)
+    
     const navigate = useNavigate();    
     const [form, setForm] = useState({
         title: "",        
@@ -31,7 +31,7 @@ function NewPostPage() {
     function handleImage(e){
         //setImg(e.target.files[0].name);
         setImg(e.target.files[0]);
-        console.log(e.target.files[0])
+        //console.log(e.target.files[0])
     }
     
     async function handleUpload(e){
@@ -51,8 +51,8 @@ function NewPostPage() {
         const imgURL = await handleUpload();
         const arrayTags = form.tags.split(",").map(element => element.trim());
         const arrayCategory = form.category.split(",").map(element => element.trim());
-        console.log(imgURL)
-        console.log(arrayCategory)
+        //console.log(imgURL)
+        //console.log(arrayCategory)
         try {       
             await api.post("/post/new-post", {...form, author: idUser, tags: arrayTags, category: arrayCategory, image: imgURL});
             navigate("/");

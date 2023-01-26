@@ -42,6 +42,12 @@ function Comment({postId, setReload, reload}) {
             await api.post("/comment/add", form);
             setReloadComment(!reloadComment);
             setReload(!reload);
+
+            setForm({
+                postId: postId,
+                commenter: loggedInUser.user._id,
+                comment: ""
+            })
         } catch (error) {
             console.log(error)
         }

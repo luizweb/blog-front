@@ -38,15 +38,23 @@ function BlogCategoryPage() {
         <>
         
         
-        <div className="container mt-5">
+        <div className="container mt-3">
             <div className="row">
 
-                <div className="fs-6 mb-4">
-                    <Link to="/"><RxHome className="fs-5 text-black-50" /></Link>
-                    <MdOutlineNavigateNext className="text-black-50" /><Link to="/blog" className="text-black-50 text-decoration-none">Blog</Link>
-                    <MdOutlineNavigateNext className="text-black-50" /><span className="text-black-50">Tag</span>
-                    <MdOutlineNavigateNext className="text-black-50" /><span className="fw-bold">{tag}</span>
+                <div className="fs-6 mb-2">
+                    
+                
+                    <nav style={{"--bs-breadcrumb-divider": "''"}} aria-label="breadcrumb">
+                        <ol className="breadcrumb">
+                            <li className="breadcrumb-item"><Link to="/"><RxHome className="fs-5 text-black-50" /></Link></li>
+                            <li className="breadcrumb-item ps-0" aria-current="page"><MdOutlineNavigateNext className="text-black-50" /><Link to="/blog" className="text-black-50 text-decoration-none">Blog</Link></li>
+                            <li className="breadcrumb-item ps-0" aria-current="page"><MdOutlineNavigateNext className="text-black-50" /><span className="text-black-50">Tag</span></li>
+                            <li className="breadcrumb-item ps-0" aria-current="page"><MdOutlineNavigateNext className="text-black-50" /><span className="fw-bold">{tag}</span></li>
+                        </ol>
+                    </nav>
                 </div>
+
+               
                 
 
                 {/* <!-- Blog entries--> */}

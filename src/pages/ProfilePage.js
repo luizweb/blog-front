@@ -47,7 +47,7 @@ function ProfilePage() {
     
     function handleChange(e){
         setForm({...form, [e.target.name]:e.target.value});
-        console.log(form);
+        
     };
 
     function handleImage(e){
@@ -68,17 +68,23 @@ function ProfilePage() {
 
     async function handleSubmit(e){
         e.preventDefault();        
-        const imgURL = await handleUpload();
+        
+        let bodyForm = {...form}
+        if (img) {
+            const imgURL = await handleUpload();
+            bodyForm = {...form, profilePic: imgURL}
+        }
+        
         
         try {       
             
-            await api.put(`/user/update/${idUser}`, {...form, profilePic: imgURL});
+            await api.put(`/user/update/${idUser}`, bodyForm);
             setShowForm(false);
             setReload(!reload);
             
         } catch (error) {
             console.log(error);
-        }
+        } 
     };
 
     async function handleDelete(e){
@@ -313,7 +319,7 @@ function ProfilePage() {
 
                                     
                                     <div className="col-lg-12 mb-2">
-                                        <label className="form-label small mb-0 text-black-50">Senha:</label>
+                                        <label className="form-label small mb-0 text-black-50">Alterar Senha:</label>
                                         <input type="password" className="form-control" name="password" placeholder="********" onChange={handleChange} />
                                     </div>
 

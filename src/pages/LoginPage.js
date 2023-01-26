@@ -39,19 +39,19 @@ function LoginPage() {
                     <h1 className="m-0">Entre</h1>
                     <p className="mb-3">Entre e tenha acesso a um conteúdo exclusivo!</p>
                     
-                    <form>
+                    <form onSubmit={handleSubmit}>
                         
                         <div className="col-lg-12 mb-2">
                             <label className="form-label">Email:</label>
-                            <input type="email" className="form-control" name="email" onChange={handleChange} />
+                            <input type="email" className="form-control" name="email" onChange={handleChange} required />
                         </div>
 
                         <div className="col-lg-12 mb-3">
                             <label className="form-label">Senha:</label>
-                            <input type="password" className="form-control" name="password" onChange={handleChange} />
+                            <input type="password" className="form-control" name="password" onChange={handleChange} required />
                         </div>
 
-                        <button className="mt-3 mb-5 btn btn-primary" onClick={handleSubmit}>Entrar</button>
+                        <button className="mt-3 mb-5 btn btn-primary" type="submit">Entrar</button>
                         <p className="text-center small my-0">Ainda não possui cadastro? <Link to="/signup">Cadastre-se</Link >.</p>
                     </form>
 
