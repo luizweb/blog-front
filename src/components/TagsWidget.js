@@ -38,7 +38,7 @@ function TagsWidget() {
                                Object.entries(tags).map(([k,v], index) => {
                                 return(
                                                                              
-                                        <span key={index} className="px-1"><Link to={`/blog/tag/${k}`}>{k}</Link></span>                                        
+                                        <span key={index} className="px-2"><Link className="text-black" to={`/blog/tag/${k}`}>{k}</Link></span>                                        
                                    
                                 )})
                                
