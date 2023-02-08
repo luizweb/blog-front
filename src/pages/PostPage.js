@@ -18,6 +18,17 @@ import {AiFillLike} from 'react-icons/ai';
 import {BsBookmark} from 'react-icons/bs';
 import {BsBookmarkCheckFill} from 'react-icons/bs';
 import {FaRegCommentAlt} from 'react-icons/fa';
+import {TbBrandTelegram} from 'react-icons/tb';
+import {RxTwitterLogo} from 'react-icons/rx';
+import {SiWhatsapp} from 'react-icons/si';
+
+
+
+
+import {AiOutlineShareAlt, AiOutlineMail, AiOutlineLinkedin} from 'react-icons/ai';
+
+
+import {EmailShareButton, LinkedinShareButton, TelegramShareButton, TwitterShareButton, WhatsappShareButton} from 'react-share';
 
 
 
@@ -124,35 +135,53 @@ function PostPage() {
 
                         {/* --- LIKE, SAVE, COMMENTS --- */}
                         {loggedInUser ? (
-                        <section className="mb-5 d-flex align-items-center justify-content-center">
-                            <div className="d-flex align-items-center">   
-                                <div>
-                                    {(post.likes.includes(loggedInUser.user._id)) ? (
-                                        <AiFillLike className="fs-4" onClick={()=>{handleLike(post._id, loggedInUser.user._id)}} style={{cursor: "pointer"}} />   
-                                    ) : (
-                                        <AiOutlineLike className="fs-4" onClick={()=>{handleLike(post._id, loggedInUser.user._id)}} style={{cursor: "pointer"}}/> 
-                                    )}
-                                </div>
-                                <div className="ps-1 fs-6 text-color-black-50">{post.likes.length}</div>
+                        <section className="mb-5 d-flex align-items-center justify-content-between border-top rounded">
+                           
+                            <div className="d-flex p-1 px-3 mt-1">
+                                    
+                                    
+
+                                    <div className="d-flex align-items-center ">   
+                                        <div>
+                                            {(post.likes.includes(loggedInUser.user._id)) ? (
+                                                <AiFillLike className="fs-4" onClick={()=>{handleLike(post._id, loggedInUser.user._id)}} style={{cursor: "pointer"}} />   
+                                            ) : (
+                                                <AiOutlineLike className="fs-4" onClick={()=>{handleLike(post._id, loggedInUser.user._id)}} style={{cursor: "pointer"}}/> 
+                                            )}
+                                        </div>
+                                        <div className="ps-1 fs-6 text-color-black-50">{post.likes.length}</div>
+                                    </div>
+        
+                                    <div className="d-flex align-items-center ps-3">   
+                                        <div>
+                                            {(post.savedPosts.includes(loggedInUser.user._id)) ? (
+                                                <BsBookmarkCheckFill className="fs-5" onClick={()=>{handleBookmark(post._id, loggedInUser.user._id)}} style={{cursor: "pointer"}} />   
+                                            ) : (
+                                                <BsBookmark className="fs-5" onClick={()=>{handleBookmark(post._id, loggedInUser.user._id)}} style={{cursor: "pointer"}}/> 
+                                            )}
+                                        </div>
+                                        <div className="ps-1 fs-6">{post.savedPosts.length}</div>
+                                    </div>
+        
+                                    <div className="d-flex align-items-center ps-3">   
+                                        <div>                     
+                                            <FaRegCommentAlt className="fs-5 text-black-50" />                                   
+                                        </div>
+                                        <div className="ps-1 fs-6">{post.comments.length}</div>
+                                
+                                    </div>
+                                    
+                            </div>
+                                        
+                            <div className="d-flex p-1 mt-1">
+                                <div><AiOutlineShareAlt className="fs-4 text-black-50 me-2"/></div>
+                                <EmailShareButton className="ps-2" url={window.location.href} subject={`luizweb-blog: ${post.title}`} body="Link para a página compartilhada:"> <AiOutlineMail className="fs-4"/> </EmailShareButton>
+                                <LinkedinShareButton className="ps-2" url={window.location.href} title="luizweb-blog" summary="luizweb-blog" source={window.location.href}> <AiOutlineLinkedin className="fs-4"/> </LinkedinShareButton>
+                                <TwitterShareButton className="ps-2" url={window.location.href} title="luizweb-blog"> <RxTwitterLogo className="fs-4"/> </TwitterShareButton>
+                                <TelegramShareButton className="ps-2" url={window.location.href}> <TbBrandTelegram className="fs-4" /> </TelegramShareButton>
+                                <WhatsappShareButton className="ps-2" url={window.location.href}><SiWhatsapp className="fs-5"/></WhatsappShareButton>
                             </div>
 
-                            <div className="d-flex align-items-center ps-5">   
-                                <div>
-                                    {(post.savedPosts.includes(loggedInUser.user._id)) ? (
-                                        <BsBookmarkCheckFill className="fs-4" onClick={()=>{handleBookmark(post._id, loggedInUser.user._id)}} style={{cursor: "pointer"}} />   
-                                    ) : (
-                                        <BsBookmark className="fs-4" onClick={()=>{handleBookmark(post._id, loggedInUser.user._id)}} style={{cursor: "pointer"}}/> 
-                                    )}
-                                </div>
-                                <div className="ps-1 fs-6 text-color-black-50">{post.savedPosts.length}</div>
-                            </div>
-
-                            <div className="d-flex align-items-center ps-5">   
-                                <div>                     
-                                    <FaRegCommentAlt className="fs-4 text-muted" />                                   
-                                </div>
-                                <div className="ps-1 fs-6 text-muted">{post.comments.length}</div>
-                            </div>
                         </section>    
                         ):
                         (<div className="bg-dark bg-opacity-10 p-3 mb-5">Para curtir, salvar como favorita ou comentar a postagem, <Link to="/signup">cadastre-se!</Link> Já é cadastrado? Faça o seu <Link to="/login">login</Link>. </div>)}
