@@ -109,10 +109,21 @@ function PostPage() {
                             {/* <!-- Post title--> */}
                             <h1 className="fw-bolder mb-1"> {post.title} </h1>
                             
-                            {/* <!-- Post meta content--> */}
-                            <div className="text-muted fst-italic mb-2">Publicado em {longDate(post.createdAt.toString())} por {post.author.name}</div>
+                            <div className="d-flex justify-content-between align-items-center">
+                                {/* <!-- Post meta content--> */}
+                                <div className="text-muted fst-italic mb-2">Publicado em {longDate(post.createdAt.toString())} por {post.author.name}</div>
+                                
+                                {/* <!-- Post number of comments--> */}
+                                <div className="d-flex align-items-center ps-3">   
+                                    <div>                     
+                                        <FaRegCommentAlt className="fs-5 text-black-50" />                                   
+                                    </div>
+                                    <div className="ps-1 fs-6"><a href="#comments" className="text-black"> {post.comments.length} comentários </a> </div>
                             
-                            {/* <!-- Post categories--> */}
+                                </div>
+                            </div>
+
+                            {/* <!-- Post tags--> */}
                             {
                                 post.tags.map((tag, index)=>{
                                     return (                                        
@@ -163,13 +174,7 @@ function PostPage() {
                                         <div className="ps-1 fs-6">{post.savedPosts.length}</div>
                                     </div>
         
-                                    <div className="d-flex align-items-center ps-3">   
-                                        <div>                     
-                                            <FaRegCommentAlt className="fs-5 text-black-50" />                                   
-                                        </div>
-                                        <div className="ps-1 fs-6">{post.comments.length}</div>
-                                
-                                    </div>
+                                    
                                     
                             </div>
                                         
@@ -184,12 +189,14 @@ function PostPage() {
 
                         </section>    
                         ):
-                        (<div className="bg-dark bg-opacity-10 p-3 mb-5">Para curtir, salvar como favorita ou comentar a postagem, <Link to="/signup">cadastre-se!</Link> Já é cadastrado? Faça o seu <Link to="/login">login</Link>. </div>)}
+                        (<div className="bg-dark bg-opacity-10 p-3 mb-5 border shadow-sm">Para curtir, salvar como favorita ou comentar a postagem, <Link to="/signup">cadastre-se!</Link> Já é cadastrado? Faça o seu <Link to="/login">login</Link>. </div>)}
                     </article>
                     
+
+                    <p id="comments"></p>
                     {loggedInUser && (
                     <>
-                    {/* <!-- Comments section--> */}
+                    {/* <!-- Comments section--> */}                    
                     <Comment postId={post._id} setReload={setReload} reload={reload}/>
                     </>
                     )}
