@@ -1,7 +1,8 @@
 import { Link } from 'react-router-dom';
 import transformImage from "../utils/TransformImage.js";
 
-import {TiFolderOpen, TiUserOutline, TiMail} from 'react-icons/ti';
+
+import {BsChatLeft, BsCalendarWeek, BsPersonBadge, BsFolder} from 'react-icons/bs';
 
 
 function Header() {
@@ -27,7 +28,7 @@ function Header() {
                         <div className="row">
                             
                                 <div className="col-lg-2 d-flex justify-content-center mb-3">
-                                <img src={strImage} alt="profile-pic" className="img-fluid"/>
+                                    <img src={strImage} alt="profile-pic" className="img-fluid"/>
                                 </div>
                                 
                                 <div className="col-lg-6 d-flex flex-column justify-content-center">
@@ -35,16 +36,18 @@ function Header() {
                                     <div>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam tempus, magna vitae fringilla accumsan, justo nunc condimentum turpis, vitae congue odio leo semper enim. Etiam mattis, massa non rhoncus volutpat, sem sem hendrerit ligula, at posuere augue tellus sit amet ligula. In pellentesque leo ac malesuada pellentesque.</div>
                                     
                                     <div>
-                                    <button className="mt-3 btn btn-primary">Call to action!</button>                                    
+                                    <button className="mt-3 btn btn-primary">Contact me!</button>                                    
                                     </div>
                                     
                                 </div>
-                                <div className="col-lg-4 p-3 d-flex flex-column justify-content-center">
+                                <div className="col-lg-4  p-3 d-flex flex-column justify-content-center">
                                     
-                                    <div className="list-group list-group-flush fs-5 fw-bold shadow-sm rounded">
-                                        <Link to="/portfolio" className="text-decoration-none"><span className="list-group-item list-group-item-action border-top-0 border-start-0 border-end-0"> <TiFolderOpen /> Portfolio</span></Link>
-                                        <Link to="/about" className="text-decoration-none"><span className="list-group-item list-group-item-action border-top-0 border-start-0 border-end-0"> <TiUserOutline /> Sobre </span></Link>
-                                        <Link to="/contact" className="text-decoration-none"><span className="list-group-item list-group-item-action border-0"> <TiMail /> Call to action!</span></Link>
+                                    <div className="list-group list-group-flush shadow-sm rounded">
+                                        
+                                        <Link to="/portfolio" className="text-decoration-none"><span className="list-group-item list-group-item-action border-top-0 border-start-0 border-end-0 fw-bold"> <BsFolder className="me-2"/> Portfolio</span></Link>
+                                        <Link to="/about" className="text-decoration-none"><span className="list-group-item list-group-item-action border-top-0 border-start-0 border-end-0"> <BsPersonBadge className="me-2" /> Luiz Simões </span></Link>
+                                        <Link to="/blog" className="text-decoration-none"><span className="list-group-item list-group-item-action border-top-0 border-start-0 border-end-0"> <BsCalendarWeek className="me-2" /> Blog</span></Link>
+                                        <Link to="/contact" className="text-decoration-none"><span className="list-group-item list-group-item-action border-0"> <BsChatLeft className="me-2"/> Contact me!</span></Link>
                                     </div>
                                 </div>
                             
