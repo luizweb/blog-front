@@ -38,6 +38,15 @@ function Comment({postId, setReload, reload}) {
 
     async function handleSubmit(e){
         e.preventDefault();
+        
+        if (document.getElementById("comment").value.trim().length < 2) {
+            return
+        }
+
+        if (document.getElementById("comment").value.trim() === "") {
+            return
+        }
+
         try {
             await api.post("/comment/add", form);
             setReloadComment(!reloadComment);
@@ -50,7 +59,7 @@ function Comment({postId, setReload, reload}) {
             })
         } catch (error) {
             console.log(error)
-        }
+        } 
     };
 
     async function handleDelete(postId, userId, commentId){
@@ -80,7 +89,7 @@ function Comment({postId, setReload, reload}) {
                                     
                                     <form className="mb-4">
                                         <div className='d-flex justify-content-end align-items-end'>
-                                            <textarea className="form-control" rows="3" placeholder="Participe da discussão e deixe um comentário!" name="comment" onChange={handleChange}>                                
+                                            <textarea id="comment" className="form-control" rows="3" placeholder="Participe da discussão e deixe um comentário!" name="comment" onChange={handleChange} required>                                
                                             </textarea>
                                             
                                             

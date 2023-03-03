@@ -67,7 +67,15 @@ function ProfilePage() {
     };
 
     async function handleSubmit(e){
-        e.preventDefault();        
+        e.preventDefault();      
+        
+        // campo nome não pode estar vazio
+        if (document.getElementById("nome").value.trim().length < 2) {
+            return;
+        };
+        if (document.getElementById("nome").value.trim() === "") {
+            return;
+        };
         
         let bodyForm = {...form}
         if (img) {
@@ -125,12 +133,12 @@ function ProfilePage() {
                 <div className="container mt-5">
                     
                     
-                    <div className="row">
+                    <div className="row mb-3">
                         <div className="col-lg-8 m-auto shadow-sm p-3 mb-2 bg-body-tertiary rounded border d-flex">                            
                             <div className="col-lg-4 text-center bg-light pt-3">                             
                                 
                                 <div className="small mb-2 ms-3 text-start">
-                                    <p className="fw-bolder">Status</p>
+                                    <p className="fw-bold">Minhas interações</p>
                                     <p>Total de curtidas: <span className="text-primary">{user.likes.length}</span></p> 
                                     <p>Total de comentários: <span className="text-primary">{user.comments.length}</span></p>
                                 </div>                              
@@ -139,7 +147,7 @@ function ProfilePage() {
                             <div className="col-lg-8 px-2 ms-3">                            
                                 <h3><BsBookmark /> Posts Favoritos</h3>
 
-                                <table className="table">
+                                <table className="table mt-4">
                                     
                                     <tbody>
                                 {!user.savedPosts.length && (
@@ -244,7 +252,7 @@ function ProfilePage() {
                             <div className="col-lg-8 mx-2 px-2 ms-3">                            
                                     <div className="col-lg-12 mb-2 d-flex flex-column">
                                         
-                                        <div><span className="text-primary text-decoration-underline" onClick={handleLogOut} style={{cursor:"pointer"}}>Logout</span> </div>                                   
+                                        <div className="mb-2"><span className="text-primary text-decoration-underline" onClick={handleLogOut} style={{cursor:"pointer"}}>Logout</span> </div>                                   
                                         <div><span className="text-danger mt-2 text-decoration-underline" onClick={handleDelete} style={{cursor:"pointer"}}>Apagar minha conta</span></div>
                                         
                                     </div>
@@ -279,7 +287,7 @@ function ProfilePage() {
                         
                                     <div className="col-lg-12 mb-2">
                                         <label className="form-label small mb-0 text-black-50">Nome:</label>
-                                        <input type="text" className="form-control" name="name" value={form.name} onChange={handleChange} />
+                                        <input id="nome" type="text" className="form-control" name="name" value={form.name} onChange={handleChange} required />
                                     </div>
                                     
                                     <div className="col-lg-12 mb-2">
@@ -317,7 +325,10 @@ function ProfilePage() {
                                         <input type="text" className="form-control" name="city" value={form.city} onChange={handleChange} />
                                     </div>
 
-                                    
+                                    <div className="col-lg-12 mb-4 border-bottom">
+
+                                    </div>
+
                                     <div className="col-lg-12 mb-2">
                                         <label className="form-label small mb-0 text-black-50">Alterar Senha:</label>
                                         <input type="password" className="form-control" name="password" placeholder="********" onChange={handleChange} />

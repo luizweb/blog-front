@@ -47,7 +47,7 @@ function SignUpPage() {
                         
                         <div className="col-lg-12 mb-2">
                             <label className="form-label">Email:</label>
-                            <input type="email" className="form-control" name="email" onChange={handleChange} required />
+                            <input type="email" className="form-control" name="email" onChange={handleChange} pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$" required />
                         </div>
 
                         <div className="col-lg-12 mb-2">

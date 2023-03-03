@@ -3,6 +3,7 @@ import { Link, useNavigate } from 'react-router-dom';
 import api from '../api/api.js';
 import { AuthContext } from '../contexts/authContext';
 
+
 function LoginPage() {
     
     const navigate = useNavigate();    
@@ -43,7 +44,7 @@ function LoginPage() {
                         
                         <div className="col-lg-12 mb-2">
                             <label className="form-label">Email:</label>
-                            <input type="email" className="form-control" name="email" onChange={handleChange} required />
+                            <input type="email" className="form-control" name="email" onChange={handleChange} pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$" required />
                         </div>
 
                         <div className="col-lg-12 mb-3">
