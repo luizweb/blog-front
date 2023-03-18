@@ -251,7 +251,7 @@ function ProfilePage() {
                             
                             <div className="col-lg-8 mx-2 px-2 ms-3">                            
                                     <div className="col-lg-12 mb-2 d-flex flex-column">
-                                        
+                                        <div className="mb-2"><span className="text-primary text-decoration-underline" style={{cursor:"pointer"}}><Link to={`/updatepass/${user._id}`}>Alterar Senha</Link></span> </div>
                                         <div className="mb-2"><span className="text-primary text-decoration-underline" onClick={handleLogOut} style={{cursor:"pointer"}}>Logout</span> </div>                                   
                                         <div><span className="text-danger mt-2 text-decoration-underline" onClick={handleDelete} style={{cursor:"pointer"}}>Apagar minha conta</span></div>
                                         
@@ -329,6 +329,9 @@ function ProfilePage() {
 
                                     </div>
 
+                                    
+                                    {/* <div>*** botão alterar senha***</div>
+
                                     <div className="col-lg-12 mb-2">
                                         <label className="form-label small mb-0 text-black-50">Alterar Senha:</label>
                                         <input type="password" className="form-control" name="password" placeholder="********" onChange={handleChange} />
@@ -337,7 +340,7 @@ function ProfilePage() {
                                     <div className="col-lg-12 mb-3">
                                         <label className="form-label small mb-0 text-black-50">Confirme a senha:</label>
                                         <input type="password" className="form-control" name="confirmPassword" placeholder="********" onChange={handleChange} />
-                                    </div>
+                                    </div> */}
 
                                     <button className="mt-3 mb-3 btn btn-primary" onClick={handleSubmit}>Atualizar</button>
                                     <button className="mt-3 mb-3 btn m-2 btn-primary" onClick={()=>{setShowForm(false)}}>Cancelar</button>

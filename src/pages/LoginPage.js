@@ -52,8 +52,11 @@ function LoginPage() {
                             <input type="password" className="form-control" name="password" onChange={handleChange} required />
                         </div>
 
-                        <button className="mt-3 mb-5 btn btn-primary" type="submit">Entrar</button>
-                        <p className="text-center small my-0">Ainda não possui cadastro? <Link to="/signup">Cadastre-se</Link >.</p>
+                        <button className="mt-3 mb-3 btn btn-primary" type="submit">Entrar</button>
+                        <div className="d-flex justify-content-between">
+                            <span className="text-center small my-0"> <Link to="/recoverpass">Esqueceu a senha?</Link ></span>
+                            <span className="text-center small my-0">Ainda não possui cadastro? <Link to="/signup">Cadastre-se</Link ></span>
+                        </div>
                     </form>
 
                 </div>

@@ -1,5 +1,6 @@
 import './App.css';
 import {Routes, Route} from 'react-router-dom';
+import { Toaster } from 'react-hot-toast';
 
 import Navbar from './components/Navbar';
 import PostPage from './pages/PostPage';
@@ -10,6 +11,8 @@ import AdminPostPage from './pages/AdminPostPage';
 import AdminUserPage from './pages/AdminUserPage';
 import SignUpPage from './pages/SignUpPage';
 import LoginPage from './pages/LoginPage';
+import RecoverPassPage from './pages/RecoverPassPage';
+import UpdatePassPage from './pages/UpdatePassPage';
 import ProfilePage from './pages/ProfilePage';
 import ErrorPage from './pages/ErrorPage';
 import BlogPage from './pages/BlogPage';
@@ -26,8 +29,11 @@ import ProtectedRouteAdmin from "./components/ProtectedRouteAdmin";
 function App() {
   return (
     <div>
+    
     <AuthContextComponent>
+      <Toaster />
       <Navbar />
+      
       <Routes>
         <Route path="/" element={ <HomePage /> } />
         
@@ -42,6 +48,8 @@ function App() {
 
         <Route path="/signup" element={ <SignUpPage /> } />
         <Route path="/login" element={ <LoginPage /> } />
+        <Route path="/recoverpass" element={ <RecoverPassPage /> } />
+        <Route path="/updatepass/:id" element={ <UpdatePassPage /> } />
         <Route path="/profile" element={ <ProtectedRoute Component={ProfilePage} /> } />
         
         <Route path="/newpost" element={ <ProtectedRouteAdmin Component={NewPostPage} /> } />
