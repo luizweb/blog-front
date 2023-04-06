@@ -10,7 +10,7 @@ function Header() {
     /* const bgImage = 'https://res.cloudinary.com/ddrdmilou/image/upload/blog/file_tw5qbe.png' */
    
 
-    const strImage = transformImage("https://res.cloudinary.com/ddrdmilou/image/upload/v1676048759/blog/perfil_py0ldv.jpg", "b_rgb:F0F1F3,e_art:audrey,ar_1:1,c_fill,g_auto,r_max,w_200/co_gray,e_outline:outer:1:200/")
+    const strImage = transformImage("https://res.cloudinary.com/ddrdmilou/image/upload/v1676048759/blog/perfil_py0ldv.jpg", "b_rgb:F0F1F3,e_art:audrey,ar_1:1,c_fill,g_auto,r_max,w_150,h_150/co_gray,e_outline:outer:1:200/")
 
     return ( 
         
@@ -27,16 +27,19 @@ function Header() {
 
                         <div className="row">
                             
-                                <div className="col-lg-2 d-flex justify-content-center mb-3">
+                                <div className="col-lg-2 d-flex align-items-center justify-content-center">
                                     <img src={strImage} alt="profile-pic" className="img-fluid"/>
                                 </div>
                                 
                                 <div className="col-lg-6 d-flex flex-column justify-content-center">
                                 
-                                    <div>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam tempus, magna vitae fringilla accumsan, justo nunc condimentum turpis, vitae congue odio leo semper enim. Etiam mattis, massa non rhoncus volutpat, sem sem hendrerit ligula, at posuere augue tellus sit amet ligula. In pellentesque leo ac malesuada pellentesque.</div>
+                                    <div className="fst-italic">Bem-vindos ao meu blog dedicado ao <span className="fw-bold">desenvolvimento web</span> e à <span className="fw-bold">área de dados</span>! 
+                                    Aqui compartilho conhecimentos destes dois campos que estão em constante evolução. <br></br>
+                                    Meu nome é <span className="fw-bold">Luiz Simões</span> e sou de Santos-SP - Brasil.
+                                    </div>
                                     
                                     <div>
-                                    <button className="mt-3 btn btn-primary">Contact me!</button>                                    
+                                    <Link to="/contact" className="text-decoration-none"><button className="mt-3 btn btn-primary">Entre em contato!</button></Link>                                    
                                     </div>
                                     
                                 </div>
@@ -47,7 +50,7 @@ function Header() {
                                         <Link to="/portfolio" className="text-decoration-none"><span className="list-group-item list-group-item-action border-top-0 border-start-0 border-end-0 fw-bold"> <BsFolder className="me-2"/> Portfolio</span></Link>
                                         <Link to="/about" className="text-decoration-none"><span className="list-group-item list-group-item-action border-top-0 border-start-0 border-end-0"> <BsPersonBadge className="me-2" /> Luiz Simões </span></Link>
                                         <Link to="/blog" className="text-decoration-none"><span className="list-group-item list-group-item-action border-top-0 border-start-0 border-end-0"> <BsCalendarWeek className="me-2" /> Blog</span></Link>
-                                        <Link to="/contact" className="text-decoration-none"><span className="list-group-item list-group-item-action border-0"> <BsChatLeft className="me-2"/> Contact me!</span></Link>
+                                        <Link to="/contact" className="text-decoration-none"><span className="list-group-item list-group-item-action border-0"> <BsChatLeft className="me-2"/> Entre em contato!</span></Link>
                                     </div>
                                 </div>
                             
