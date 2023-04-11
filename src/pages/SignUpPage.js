@@ -12,7 +12,7 @@ function SignUpPage() {
         password: "",
         confirmPassword: ""
     });
-    
+    const [sending, setSending] = useState(false);
     
     function handleChange(e){
         setForm({...form, [e.target.name]:e.target.value});
@@ -26,10 +26,15 @@ function SignUpPage() {
             return;
         };
 
+        setSending(true);
+
         try {       
             await api.post("/user/signup", form);
+            toast.success("Cadastro realizado com sucesso!");
+            setSending(false);
             navigate("/login");
         } catch (error) {
+            toast.error("Ocorreu um erro.");
             console.log(error);
         }
     };
@@ -66,7 +71,21 @@ function SignUpPage() {
                             <input type="password" className="form-control" name="confirmPassword" onChange={handleChange} required />
                         </div>
 
-                        <button className="mt-3 mb-5 btn btn-primary" type="submit">Cadastrar</button>
+                        <div className="col-lg-12 mb-3 small">
+                            A senha deve conter:
+                            <ul className="list-group-item-info">
+                                <li>no mínimo 8 caracteres;</li>
+                                <li>uma letra maiúscula e uma minúscula;</li>
+                                <li>um número;</li>
+                                <li>um caracter especial; Ex.: @, #</li>
+                            </ul>
+                        </div>
+
+                        <button className="mt-3 mb-5 btn btn-primary" type="submit" disabled={sending}>
+                        {sending ? 'Cadastrando...' : 'Cadastrar'}
+                        </button>
+                        
+
                         <p className="text-center small my-0">Já possui cadastro? Faça o seu <Link to="/login">login</Link>.</p>
                     </form>
 

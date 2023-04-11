@@ -1,17 +1,48 @@
+import SideWidget from "../components/SideWidget";
+import transformImage from "../utils/TransformImage.js";
+
 function AboutPage() {
+    
+    const strImage = transformImage("https://res.cloudinary.com/ddrdmilou/image/upload/v1676048759/blog/perfil_py0ldv.jpg", "b_rgb:FFFFFF,e_art:audrey,ar_1:1,c_fill,g_auto,r_max,w_150,h_150/co_gray,e_outline:outer:1:200/")
+    
+    
     return ( 
         <div className="container mt-5">
             <div className="row">
 
                 
+                
                 <div className="col-lg-8 m-auto">
                     <h2 className="mb-3">Sobre</h2>
 
-                    <div className="mb-5">
-                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aliquam lacinia est vitae placerat sagittis. Nam aliquet, lacus id pretium tristique, purus quam mattis nisi, vitae pulvinar magna mi a lorem. Ut vitae tempus dolor, quis scelerisque quam. Donec semper congue nisi, ac condimentum erat placerat ut. Praesent hendrerit porttitor convallis. Ut aliquet ultricies eros, eu semper nisi dignissim eu. Maecenas elementum tellus tristique commodo sollicitudin. Pellentesque a consectetur orci. Vivamus neque urna, egestas et orci non, bibendum commodo felis. Mauris porttitor justo eget ultrices tincidunt.</p>
+                   
 
-                    <p>Fusce eget mauris eu magna pulvinar pharetra sit amet sit amet justo. Nullam sodales orci ut sodales consectetur. Sed ut purus scelerisque, varius sapien sed, bibendum massa. Pellentesque laoreet volutpat eros, in lacinia tellus tincidunt aliquet. Aliquam iaculis pretium tincidunt. Interdum et malesuada fames ac ante ipsum primis in faucibus. Aliquam erat volutpat. Aenean velit felis, consectetur ac fermentum ac, vehicula eu enim. Vestibulum placerat, urna at mollis pretium, purus lorem volutpat purus, sagittis ullamcorper erat sem nec justo. Duis non ante eget diam bibendum hendrerit. Duis porta risus eros, non finibus ante sagittis vel. In sed sollicitudin nisl. Suspendisse posuere nisl sed congue eleifend. Fusce congue, velit nec viverra imperdiet, sem magna tincidunt ipsum, sed rutrum tortor massa eu erat. Fusce pulvinar sollicitudin enim, quis blandit dolor congue sit amet.</p>
-                    </div>
+                        <div className="mb-3">
+                        
+                            <div className="fst-italic mb-5">
+                            <p>
+                                Bem-vindos ao meu blog dedicado ao <span className="fw-bold">desenvolvimento web</span> e à <span className="fw-bold">área de dados</span>! 
+                                Aqui compartilho conhecimentos destes dois campos que estão em constante evolução.
+                            </p> 
+                            
+                            <p>Meu nome é <span className="fw-bold">Luiz Simões</span> e sou de Santos-SP - Brasil. Sou formado em Ciência da Computação desde 2000.</p>
+                            
+                            
+                            </div>
+
+                            <div className="mb-3 d-flex align-items-center justify-content-center">
+                            <img src={strImage} alt="profile-pic" className="img-fluid"/>
+                            </div>
+
+                            <SideWidget />
+
+                        </div>
+
+
+
+                  
+
+                    
 
                 </div>
             </div>

@@ -62,7 +62,7 @@ function PortfolioPage() {
 
                             </p>
                             <p>
-                                <a href="https://www.kaggle.com/code/luizweb/um-caminho-para-os-melhores-sal-rios-vers-o-com-ml" target="_blank" rel="noreferrer"><button type="button" class="btn btn-primary">Visitar!</button></a>
+                                <a href="https://www.kaggle.com/code/luizweb/um-caminho-para-os-melhores-sal-rios-vers-o-com-ml" target="_blank" rel="noreferrer"><button type="button" className="btn btn-primary">Visitar!</button></a>
                             </p>
                         </div>
                     </div>
@@ -89,7 +89,7 @@ function PortfolioPage() {
 
                             </p>
                             <p>
-                                <a href="https://luizweb-stateofdata2021-app-4mkdsm.streamlit.app/"  target="_blank" rel="noreferrer"><button type="button" class="btn btn-primary">Visitar!</button></a>
+                                <a href="https://luizweb-stateofdata2021-app-4mkdsm.streamlit.app/"  target="_blank" rel="noreferrer"><button type="button" className="btn btn-primary">Visitar!</button></a>
                             </p>
                         </div>
                         
@@ -163,7 +163,7 @@ function PortfolioPage() {
 
                             <p>
                                 
-                                <a href="https://luizweb.github.io/connect4/"  target="_blank" rel="noreferrer"><button type="button" class="btn btn-primary">Visitar!</button></a>
+                                <a href="https://luizweb.github.io/connect4/"  target="_blank" rel="noreferrer"><button type="button" className="btn btn-primary">Visitar!</button></a>
                             </p>
                         </div>
                     </div>

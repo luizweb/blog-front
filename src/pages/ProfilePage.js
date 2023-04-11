@@ -152,7 +152,7 @@ function ProfilePage() {
                                     <tbody>
                                 {!user.savedPosts.length && (
                                     <tr>
-                                        <td className="text-muted fst-italic small">Nenhuma postagem marcada como favorita</td>
+                                        <td className="text-muted fst-italic small">Nenhum post marcado como favorito</td>
                                     </tr>
                                 )}
                                 {

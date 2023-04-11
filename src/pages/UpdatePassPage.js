@@ -76,6 +76,15 @@ function UpdatePassPage() {
                             <input type="password" className="form-control" name="confirmPassword" onChange={handleChange} required />
                         </div>
 
+                        <div className="col-lg-12 mb-3 small">
+                            A senha deve conter:
+                            <ul className="list-group-item-info">
+                                <li>no mínimo 8 caracteres;</li>
+                                <li>uma letra maiúscula e uma minúscula;</li>
+                                <li>um número;</li>
+                                <li>um caracter especial; Ex.: @, #</li>
+                            </ul>
+                        </div>
                         
                         <button className="mt-3 mb-3 btn btn-primary" type="submit">Alterar</button>
                         

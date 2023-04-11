@@ -1,19 +1,75 @@
+import { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
+import api from '../api/api.js';
+import toast from 'react-hot-toast';
+
 function ContactPage() {
+
+    const navigate = useNavigate();  
+    const [form, setForm] = useState({
+        name: "",
+        email: "",
+        message: ""
+    });
+    const [sending, setSending] = useState(false);
+
+    function handleChange(e){
+        setForm({...form, [e.target.name]:e.target.value});
+        
+    };
+
+
+    async function handleSubmit(e){
+        e.preventDefault();
+        
+        setSending(true);
+
+        try {       
+            await api.post("/user/contact", form);
+            toast.success("Mensagem enviada!");
+            setSending(false);
+            navigate("/");
+        } catch (error) {
+            toast.error("Ocorreu um erro.");
+            console.log(error);
+        }
+    };
+
+
     return ( 
         <div className="container mt-5">
             <div className="row">
 
-                
-                <div className="col-lg-8 m-auto">
-                    <h2 className="mb-3">Contato</h2>
+            <div className="col-lg-6 m-auto shadow-sm p-3 mb-5 bg-body-tertiary rounded border">
+                    <h1 className="m-0 mb-4">Contato</h1>
+                    
+                    
+                    <form onSubmit={handleSubmit}>
+                        
+                        <div className="col-lg-12 mb-2">
+                            <label className="form-label">Nome:</label>
+                            <input type="text" className="form-control" name="name" onChange={handleChange} required />
+                        </div>
+                        
+                        <div className="col-lg-12 mb-2">
+                            <label className="form-label">Email:</label>
+                            <input type="email" className="form-control" name="email" onChange={handleChange} pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$" required />
+                        </div>
 
-                    <div className="mb-5">
-                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aliquam lacinia est vitae placerat sagittis. Nam aliquet, lacus id pretium tristique, purus quam mattis nisi, vitae pulvinar magna mi a lorem. Ut vitae tempus dolor, quis scelerisque quam. Donec semper congue nisi, ac condimentum erat placerat ut. Praesent hendrerit porttitor convallis. Ut aliquet ultricies eros, eu semper nisi dignissim eu. Maecenas elementum tellus tristique commodo sollicitudin. Pellentesque a consectetur orci. Vivamus neque urna, egestas et orci non, bibendum commodo felis. Mauris porttitor justo eget ultrices tincidunt.</p>
+                        <div className="col-lg-12 mb-2">
+                            <label className="form-label">Mensagem:</label>
+                            <textarea className="form-control" name="message" rows="3" onChange={handleChange} required></textarea>
+                        </div>
+                       
 
-                    <p>Fusce eget mauris eu magna pulvinar pharetra sit amet sit amet justo. Nullam sodales orci ut sodales consectetur. Sed ut purus scelerisque, varius sapien sed, bibendum massa. Pellentesque laoreet volutpat eros, in lacinia tellus tincidunt aliquet. Aliquam iaculis pretium tincidunt. Interdum et malesuada fames ac ante ipsum primis in faucibus. Aliquam erat volutpat. Aenean velit felis, consectetur ac fermentum ac, vehicula eu enim. Vestibulum placerat, urna at mollis pretium, purus lorem volutpat purus, sagittis ullamcorper erat sem nec justo. Duis non ante eget diam bibendum hendrerit. Duis porta risus eros, non finibus ante sagittis vel. In sed sollicitudin nisl. Suspendisse posuere nisl sed congue eleifend. Fusce congue, velit nec viverra imperdiet, sem magna tincidunt ipsum, sed rutrum tortor massa eu erat. Fusce pulvinar sollicitudin enim, quis blandit dolor congue sit amet.</p>
-                    </div>
+                        <button className="mt-3 mb-5 btn btn-primary" type="submit" disabled={sending}>
+                        {sending ? 'Enviando...' : 'Enviar'}
+                        </button>
+                        
+                    </form>
 
                 </div>
+                
             </div>
         </div>
      );

@@ -24,7 +24,7 @@ function RecoverPassPage() {
             toast.success("Pedido de alteração de senha enviado! Verifique seu e-mail.");
             navigate("/");            
         } catch (error) {
-            toast.error("Ocorreu um erro!");
+            toast.error("Email não cadastrado ou não confirmado!");
             console.log(error);
         }
     };

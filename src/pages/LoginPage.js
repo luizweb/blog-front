@@ -2,7 +2,7 @@ import { useState, useContext } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import api from '../api/api.js';
 import { AuthContext } from '../contexts/authContext';
-
+import toast from 'react-hot-toast';
 
 function LoginPage() {
     
@@ -11,6 +11,8 @@ function LoginPage() {
         email: "",
         password: ""        
     });
+    const [sending, setSending] = useState(false);
+
     const { setLoggedInUser } = useContext(AuthContext);
     
     function handleChange(e){
@@ -20,13 +22,18 @@ function LoginPage() {
     async function handleSubmit(e){
         e.preventDefault();
         
+        setSending(true);
+
         try {       
             const response = await api.post("/user/login", form);
             setLoggedInUser({ ...response.data });
             localStorage.setItem("loggedInUser", JSON.stringify(response.data));
-
+            toast.success("Login efetuado com sucesso!");
+            setSending(false);
             navigate("/profile");
         } catch (error) {
+            toast.error("Email ou Senha inválidos.");
+            setSending(false);
             console.log(error);
         }
     };
@@ -52,7 +59,11 @@ function LoginPage() {
                             <input type="password" className="form-control" name="password" onChange={handleChange} required />
                         </div>
 
-                        <button className="mt-3 mb-3 btn btn-primary" type="submit">Entrar</button>
+                        <button className="mt-3 mb-3 btn btn-primary" type="submit" disabled={sending}>
+                        {sending ? 'Entrando...' : 'Entrar'}
+                        </button>
+                        
+                        
                         <div className="d-flex justify-content-between">
                             <span className="text-center small my-0"> <Link to="/recoverpass">Esqueceu a senha?</Link ></span>
                             <span className="text-center small my-0">Ainda não possui cadastro? <Link to="/signup">Cadastre-se</Link ></span>
