@@ -189,7 +189,7 @@ function PostPage() {
 
                         </section>    
                         ):
-                        (<div className="bg-dark bg-opacity-10 p-3 mb-5 border shadow-sm">Para curtir, salvar como favorita ou comentar a postagem, <Link to="/signup">cadastre-se!</Link> Já é cadastrado? Faça o seu <Link to="/login">login</Link>. </div>)}
+                        (<div className="bg-info bg-opacity-10 p-3 mb-5 border border-info shadow-sm">Para curtir, salvar, compartilhar ou comentar a postagem, <Link to="/signup">cadastre-se!</Link> Já é cadastrado? Faça o seu <Link to="/login">login</Link>. </div>)}
                     </article>
                     
 
