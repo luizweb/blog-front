@@ -10,7 +10,7 @@ function Header() {
     /* const bgImage = 'https://res.cloudinary.com/ddrdmilou/image/upload/blog/file_tw5qbe.png' */
    
 
-    const strImage = transformImage("https://res.cloudinary.com/ddrdmilou/image/upload/v1681478677/blog/file_qkxjuv.png", "b_rgb:F0F1F3,e_art:audrey,ar_1:1,c_fill,g_auto,r_max,w_150,h_150/co_gray,e_outline:outer:1:200/")
+    const strImage = transformImage("https://res.cloudinary.com/ddrdmilou/image/upload/v1697218595/blog/file_xgap9z.png", "b_rgb:F0F1F3,e_art:audrey,ar_1:1,c_fill,g_auto,r_max,w_150,h_150/co_gray,e_outline:outer:1:200/")
 
     return ( 
         

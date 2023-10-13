@@ -8,12 +8,19 @@ function AdminPostPage() {
     const [reload, setReload] = useState(false);
 
     const [posts, setPosts] = useState([]);
+    const [postsnotactive, setPostsnotactive] = useState([]);
 
     useEffect(()=>{
         async function fetchPosts(){
             try {
-                const response = await api.get("/post");
+                //const response = await api.get("/post");
+                const [response, responseNotactive] = await Promise.all([
+                    api.get("/post"),
+                    api.get("/post/notactive"),
+                  ]);
+
                 setPosts(response.data);
+                setPostsnotactive(responseNotactive.data);
                 setIsLoading(false);
             } catch (error) {
                 console.log(error);
@@ -61,6 +68,50 @@ function AdminPostPage() {
                             
                             {
                                 posts.map((post, index) => {                                    
+                                                                      
+                                    return (
+
+                                        <tr key={post._id}>
+                                            <th scope="row">{index}</th>
+                                            <td>{shortDate(post.createdAt.toString())}</td>
+                                            <td className="fw-bold">{post.title}</td>
+                                            <td>{post.summary.slice(0,40)}</td>
+                                            <td>{post.likes.length}</td>
+                                            <td>{post.savedPosts.length}</td>
+                                            <td>{post.comments.length}</td>
+                                            <td>
+                                                <img src="https://cdn-icons-png.flaticon.com/512/3177/3177433.png" alt="delete" height="25px" style={{cursor: "pointer"}} onClick={()=>{handleDelete(post._id)}}/>
+                                            </td>
+                                        </tr> 
+
+                                    )
+                                })
+                            }
+                            
+                            
+                            
+                        </tbody>
+                    </table>
+
+                    <h1 className="mb-3">Postagens Não Ativas</h1>
+                    
+                    <table className="table">
+                        <thead>
+                            <tr>
+                            <th scope="col">#</th>
+                            <th scope="col">Data</th>
+                            <th scope="col">Título</th>
+                            <th scope="col">Resumo</th>
+                            <th scope="col">Likes</th>
+                            <th scope="col">Bookmarks</th>
+                            <th scope="col">Comentários</th>
+                            <th scope="col">Ação</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            
+                            {
+                                postsnotactive.map((post, index) => {                                    
                                                                       
                                     return (
 
