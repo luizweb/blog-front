@@ -37,6 +37,17 @@ function AdminPostPage() {
             console.log(error);
         }
     };
+
+    async function handleActive(postId, activate){
+        try {
+                
+            const activeParams = {"postId": postId, "activate": activate}
+            await api.put('/post/active', activeParams);
+            setReload(!reload);
+        } catch (error) {
+            console.log(error);
+        }
+    };
     
     
     
@@ -49,7 +60,7 @@ function AdminPostPage() {
         <div className="container mt-5">
             <div className="row">
                 <div className="col-lg-12 mb-5">
-                    <h1 className="mb-3">Postagens</h1>
+                    <h4 className="mb-3">Postagens</h4>
                     
                     <table className="table">
                         <thead>
@@ -80,6 +91,8 @@ function AdminPostPage() {
                                             <td>{post.savedPosts.length}</td>
                                             <td>{post.comments.length}</td>
                                             <td>
+                                                <img src="https://cdn-icons-png.flaticon.com/512/889/889727.png" alt="activate" height="30px" style={{cursor: "pointer"}} onClick={()=>{handleActive(post._id, false)}} />
+                                                &nbsp;
                                                 <img src="https://cdn-icons-png.flaticon.com/512/3177/3177433.png" alt="delete" height="25px" style={{cursor: "pointer"}} onClick={()=>{handleDelete(post._id)}}/>
                                             </td>
                                         </tr> 
@@ -92,8 +105,9 @@ function AdminPostPage() {
                             
                         </tbody>
                     </table>
-
-                    <h1 className="mb-3">Postagens Não Ativas</h1>
+                    <br></br>
+                    <hr></hr>
+                    <h4 className="mb-3">Inativos</h4>
                     
                     <table className="table">
                         <thead>
@@ -118,13 +132,19 @@ function AdminPostPage() {
                                         <tr key={post._id}>
                                             <th scope="row">{index}</th>
                                             <td>{shortDate(post.createdAt.toString())}</td>
-                                            <td className="fw-bold">{post.title}</td>
+                                            <td className="fw-bold">{post.title.slice(0,40)}</td>
                                             <td>{post.summary.slice(0,40)}</td>
                                             <td>{post.likes.length}</td>
                                             <td>{post.savedPosts.length}</td>
                                             <td>{post.comments.length}</td>
                                             <td>
+                                                <img src="https://cdn-icons-png.flaticon.com/512/889/889731.png" alt="activate" height="30px" style={{cursor: "pointer"}} onClick={()=>{handleActive(post._id, true)}} />
+                                                &nbsp;
                                                 <img src="https://cdn-icons-png.flaticon.com/512/3177/3177433.png" alt="delete" height="25px" style={{cursor: "pointer"}} onClick={()=>{handleDelete(post._id)}}/>
+                                            
+                                              
+                                            
+                                            
                                             </td>
                                         </tr> 
 
